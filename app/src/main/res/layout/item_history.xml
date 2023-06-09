@@ -5,17 +5,104 @@
     app:cardCornerRadius="10dp"
     android:layout_margin="15dp"
     android:layout_width="350dp"
-    android:layout_height="280dp">
+    android:layout_height="wrap_content">
 
-    <RelativeLayout
+    <LinearLayout
         android:padding="10dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/tv_result"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Hasil"/>
-    </RelativeLayout>
+            android:text="Hasil Rekomendasi"
+            android:textSize="22sp"
+            android:textColor="@color/black"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/tv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tanggal : "
+            android:textSize="18sp"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/tv_label_face"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Face Expression"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/tv_angry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Angry : "
+            android:textSize="18sp"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/tv_disgust"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Disgust : "
+            android:textSize="18sp"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/tv_fear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fear : "
+            android:textSize="18sp"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/tv_happy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Happy : "
+            android:textSize="18sp"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/tv_sad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sad : "
+            android:textSize="18sp"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/tv_surprise"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Surprise : "
+            android:textSize="18sp"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/tv_label_sound"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sound Emotion Result"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_sound_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sound Emotion : "
+            android:textSize="18sp"
+            android:textColor="@color/black" />
+
+    </LinearLayout>
 </androidx.cardview.widget.CardView>
