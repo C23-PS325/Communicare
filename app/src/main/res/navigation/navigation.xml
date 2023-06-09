@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/splashFragment">
+    app:startDestination="@id/homeFragment">
 
     <fragment
         android:id="@+id/homeFragment"
@@ -17,8 +17,10 @@
             android:id="@+id/action_homeFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
         <action
-            android:id="@+id/action_homeFragment_to_uploadFragment"
-            app:destination="@id/uploadFragment" />
+            android:id="@+id/action_homeFragment_to_cameraFragment"
+            app:destination="@id/cameraFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -93,10 +95,22 @@
             app:destination="@id/onBoardingFragment" />
     </fragment>
     <fragment
+        android:id="@+id/cameraFragment"
+        android:name="c23.ps325.communicare.ui.CameraFragment"
+        android:label="fragment_camera"
+        tools:layout="@layout/fragment_camera" >
+        <action
+            android:id="@+id/action_cameraFragment_to_uploadFragment"
+            app:destination="@id/uploadFragment" />
+    </fragment>
+    <fragment
         android:id="@+id/uploadFragment"
         android:name="c23.ps325.communicare.ui.UploadFragment"
         android:label="fragment_upload"
         tools:layout="@layout/fragment_upload" >
+        <argument
+            android:name="uri"
+            app:argType="android.net.Uri" />
         <action
             android:id="@+id/action_uploadFragment_to_resultFragment"
             app:destination="@id/resultFragment" />
