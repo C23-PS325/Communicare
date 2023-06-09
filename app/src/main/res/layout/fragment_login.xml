@@ -39,6 +39,7 @@
         android:lines="1"
         android:paddingStart="8dp"
         android:paddingEnd="8dp"
+        android:hint="@string/username"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -56,6 +57,7 @@
         android:background="@drawable/bg_login_register_text"
         android:drawableStart="@drawable/icon_password"
         android:drawablePadding="8dp"
+        android:hint="@string/password"
         app:layout_constraintEnd_toEndOf="@+id/input_name"
         app:layout_constraintStart_toStartOf="@+id/input_name"
         app:layout_constraintTop_toBottomOf="@+id/input_name" />
@@ -84,7 +86,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
-        android:text="Login"
+        android:text="@string/login"
         app:layout_constraintEnd_toEndOf="@+id/input_password"
         app:layout_constraintStart_toStartOf="@+id/input_password"
         app:layout_constraintTop_toBottomOf="@+id/input_password" />

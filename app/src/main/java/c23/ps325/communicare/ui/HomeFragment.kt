@@ -1,24 +1,21 @@
 package c23.ps325.communicare.ui
 
 import android.Manifest
-import android.content.Context
-import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import c23.ps325.communicare.R
 import c23.ps325.communicare.databinding.FragmentHomeBinding
-import c23.ps325.communicare.databinding.FragmentSplashBinding
 import dagger.hilt.android.AndroidEntryPoint
+import c23.ps325.communicare.viewmodel.AuthViewModel
 
 private var PERMISSIONS_REQUIRED = arrayOf(
     Manifest.permission.CAMERA,
@@ -27,8 +24,8 @@ private var PERMISSIONS_REQUIRED = arrayOf(
 @Suppress("DEPRECATION")
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
-
-    private var _binding : FragmentHomeBinding? = null
+    private lateinit var dataStoreViewModel: AuthViewModel
+    private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,6 +49,11 @@ class HomeFragment : Fragment() {
     ): View {
         _binding = FragmentHomeBinding.inflate(layoutInflater)
         return binding.root
+
+        binding.userPhoto.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_profileFragment)
+        }
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
