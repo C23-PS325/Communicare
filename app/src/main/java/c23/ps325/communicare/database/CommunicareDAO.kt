@@ -8,7 +8,7 @@ import androidx.room.Query
 
 @Dao
 interface CommunicareDAO {
-    @Query("SELECT * FROM PredictionHistory SORT BY date DESC")
+    @Query("SELECT * FROM PredictionHistory ORDER BY date DESC")
     fun getAllHistory(): LiveData<List<PredictionHistory>>
 
     @Insert

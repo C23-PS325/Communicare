@@ -1,108 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardCornerRadius="10dp"
-    android:layout_margin="15dp"
-    android:layout_width="350dp"
-    android:layout_height="wrap_content">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
-        android:padding="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+    <data>
+        <variable
+            name="item"
+            type="c23.ps325.communicare.database.PredictionHistory" />
+    </data>
 
-        <TextView
-            android:id="@+id/tv_result"
+    <androidx.cardview.widget.CardView
+        app:cardCornerRadius="10dp"
+        android:layout_margin="15dp"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:padding="10dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Hasil Rekomendasi"
-            android:textSize="22sp"
-            android:textColor="@color/black"
-            android:textStyle="bold"/>
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tv_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Tanggal : "
-            android:textSize="18sp"
-            android:textColor="@color/black" />
+            <TextView
+                android:id="@+id/tv_result"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Hasil Rekomendasi"
+                android:textSize="22sp"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/tv_label_face"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Face Expression"
-            android:textSize="18sp"
-            android:textColor="@color/black"
-            android:textStyle="bold"/>
+            <TextView
+                android:id="@+id/tv_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{`Date : ` + item.date}"
+                android:textSize="18sp"
+                android:textColor="@color/black" />
 
-        <TextView
-            android:id="@+id/tv_angry"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Angry : "
-            android:textSize="18sp"
-            android:textColor="@color/black" />
+            <TextView
+                android:id="@+id/tv_label_face"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Face Expression"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/tv_disgust"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Disgust : "
-            android:textSize="18sp"
-            android:textColor="@color/black" />
+            <TextView
+                android:id="@+id/tv_angry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{`Angry : ` + Double.toString(item.angry)}"
+                android:textSize="18sp"
+                android:textColor="@color/black" />
 
-        <TextView
-            android:id="@+id/tv_fear"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Fear : "
-            android:textSize="18sp"
-            android:textColor="@color/black" />
+            <TextView
+                android:id="@+id/tv_disgust"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{`Disgust : ` + Double.toString(item.disgust)}"
+                android:textSize="18sp"
+                android:textColor="@color/black" />
 
-        <TextView
-            android:id="@+id/tv_happy"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Happy : "
-            android:textSize="18sp"
-            android:textColor="@color/black" />
+            <TextView
+                android:id="@+id/tv_fear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{`Fear : ` + Double.toString(item.fear)}"
+                android:textSize="18sp"
+                android:textColor="@color/black" />
 
-        <TextView
-            android:id="@+id/tv_sad"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Sad : "
-            android:textSize="18sp"
-            android:textColor="@color/black" />
+            <TextView
+                android:id="@+id/tv_happy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{`Happy : ` + Double.toString(item.happy)}"
+                android:textSize="18sp"
+                android:textColor="@color/black" />
 
-        <TextView
-            android:id="@+id/tv_surprise"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Surprise : "
-            android:textSize="18sp"
-            android:textColor="@color/black" />
+            <TextView
+                android:id="@+id/tv_sad"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{`Sad : ` + Double.toString(item.sad)}"
+                android:textSize="18sp"
+                android:textColor="@color/black" />
 
-        <TextView
-            android:id="@+id/tv_label_sound"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Sound Emotion Result"
-            android:textSize="18sp"
-            android:textColor="@color/black"
-            android:textStyle="bold" />
+            <TextView
+                android:id="@+id/tv_surprise"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{`Surprise : ` + Double.toString(item.surprise)}"
+                android:textSize="18sp"
+                android:textColor="@color/black" />
 
-        <TextView
-            android:id="@+id/tv_sound_result"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Sound Emotion : "
-            android:textSize="18sp"
-            android:textColor="@color/black" />
+            <TextView
+                android:id="@+id/tv_label_sound"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sound Emotion Result"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
 
-    </LinearLayout>
-</androidx.cardview.widget.CardView>
+            <TextView
+                android:id="@+id/tv_sound_result"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{`Sound Emotion : ` + item.soundEmotion}"
+                android:textSize="18sp"
+                android:textColor="@color/black" />
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</layout>
