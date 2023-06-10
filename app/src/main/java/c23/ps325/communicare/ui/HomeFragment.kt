@@ -17,7 +17,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import c23.ps325.communicare.R
 import c23.ps325.communicare.databinding.FragmentHomeBinding
-import c23.ps325.communicare.databinding.FragmentSplashBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 private var PERMISSIONS_REQUIRED = arrayOf(
@@ -58,25 +57,23 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.oneWayButton.setOnClickListener {
-            if (hasPermissions(requireContext())) {
-                navigateToCapture()
-            } else {
-                Log.e(HomeFragment::class.java.simpleName,
-                    "Re-requesting permissions ...")
-                activityResultLauncher.launch(PERMISSIONS_REQUIRED)
-            }
+            getPermission()
         }
 
         binding.twoWayButton.setOnClickListener {
-            if (hasPermissions(requireContext())) {
-                navigateToCapture()
-            } else {
-                Log.e(HomeFragment::class.java.simpleName,
-                    "Re-requesting permissions ...")
-                activityResultLauncher.launch(PERMISSIONS_REQUIRED)
-            }
+            getPermission()
         }
 
+    }
+
+    private fun getPermission() {
+        if (hasPermissions(requireContext())) {
+            navigateToCapture()
+        } else {
+            Log.e(HomeFragment::class.java.simpleName,
+                "Re-requesting permissions ...")
+            activityResultLauncher.launch(PERMISSIONS_REQUIRED)
+        }
     }
 
     private val activityResultLauncher =
@@ -87,9 +84,6 @@ class HomeFragment : Fragment() {
             permissions.entries.forEach {
                 if (it.key in PERMISSIONS_REQUIRED && !it.value)
                     permissionGranted = false
-            }
-            if (permissionGranted && !permissions.isEmpty()) {
-                navigateToCapture()
             }
             if (!permissionGranted) {
                 Toast.makeText(context, "Permission request denied", Toast.LENGTH_LONG).show()

@@ -1,4 +1,4 @@
-package c23.ps325.communicare.response
+package c23.ps325.communicare.model
 
 data class RegisterRequest(
     val username: String,

@@ -5,5 +5,5 @@
     <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque massa turpis, eleifend non blandit quis, vehicula et arcu. Donec at pretium turpis. Nunc lectus nisi, ultrices sed fringilla ac, imperdiet cursus purus. Maecenas venenatis eleifend enim eu dignissim. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Phasellus fermentum massa sed magna fringilla sagittis. Vestibulum lectus est, ultrices a eros lacinia, euismod finibus felis. Morbi felis risus, condimentum in sapien non, malesuada ultrices augue. Nunc fermentum sapien ac lectus elementum dapibus. Morbi tincidunt urna sit amet pellentesque lobortis. Nulla risus tellus, commodo aliquam tristique sit amet, dictum eget nisl.</string>
     <string name="capture">Capture</string>
     <string name="back">Back</string>
-    <string name="tips_upload">Tips for the page:\n\t- tap anywhere in the video to replay\n\t- tap system back button to go back\n\t- click button to upload your video</string>
+    <string name="tips_upload">Tips for the page:\n\t- tap anywhere in the video to replay\n\t- tap system back button to go back\n\t- click button to upload your video\n\t- please wait for see the result after click upload button</string>
 </resources>

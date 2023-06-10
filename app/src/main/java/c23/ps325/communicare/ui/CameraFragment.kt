@@ -36,7 +36,6 @@ class CameraFragment : Fragment(){
     private var lensFacing: Int = CameraSelector.LENS_FACING_FRONT
     private var preview: Preview? = null
     private lateinit var videoCapture: VideoCapture<Recorder>
-    private var cameraProvider: ProcessCameraProvider? = null
     private lateinit var viewFinder: PreviewView
     private var currentRecording: Recording? = null
     private lateinit var recordingState:VideoRecordEvent

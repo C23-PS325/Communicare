@@ -3,10 +3,10 @@ package c23.ps325.communicare.repository
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import c23.ps325.communicare.network.ServiceApi
-import c23.ps325.communicare.response.LoginRequest
-import c23.ps325.communicare.response.LoginResponse
-import c23.ps325.communicare.response.RegisterRequest
-import c23.ps325.communicare.response.UserResponse
+import c23.ps325.communicare.model.LoginRequest
+import c23.ps325.communicare.model.LoginResponse
+import c23.ps325.communicare.model.RegisterRequest
+import c23.ps325.communicare.model.UserResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
