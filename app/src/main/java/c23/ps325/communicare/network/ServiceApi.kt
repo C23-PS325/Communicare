@@ -17,8 +17,8 @@ interface ServiceApi {
 interface ServiceMLApi {
     @POST("predict-video")
     @Multipart
-    @Headers("Content-Type: multipart/form-data")
+//    @Headers("Content-Type: multipart/form-data")
     fun uploadVideo(
-        @Part file_upload : MultipartBody.Part
+        @Part file_video : MultipartBody.Part
     ): Call<VideoPredictionResponse>
 }
