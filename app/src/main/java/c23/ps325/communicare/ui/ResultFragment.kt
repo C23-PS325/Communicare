@@ -88,11 +88,12 @@ class ResultFragment : Fragment() {
         }
 
         val soundRecommendation = when(dataPrediction.audio){
-            "Angry" -> "Maintain a calm and controlled tone of voice. Avoid raising your voice or sounding aggressive, as it can come across as confrontational. Instead, focus on expressing your thoughts assertively and confidently while keeping your emotions in check."
-            "Sad" -> "While it's important to be genuine and authentic, excessive sadness in your voice can be perceived as a lack of enthusiasm or confidence. Strive for a neutral or slightly positive tone, ensuring that your voice conveys engagement and interest in the conversation."
-            "Surprise" -> "Use a tone of voice that reflects genuine surprise and interest. Vary your pitch slightly to convey the element of surprise effectively. Ensure that your surprise doesn't overshadow your ability to respond or engage actively in the conversation."
-            "Happy" -> "Infuse your voice with warmth and positivity. Use a slightly elevated tone with a smile in your voice to convey enthusiasm and engagement. However, be mindful of striking a balance, ensuring that your happiness doesn't come across as overly exaggerated or forced."
-            "Fear" -> "Minimize signs of fear or anxiety in your voice, as they can convey insecurity or lack of confidence. Focus on maintaining a steady and composed tone, speaking clearly and articulately. Project confidence and control in your voice to inspire trust and credibility."
+            "angry" -> "Maintain a calm and controlled tone of voice. Avoid raising your voice or sounding aggressive, as it can come across as confrontational. Instead, focus on expressing your thoughts assertively and confidently while keeping your emotions in check."
+            "disgust" -> "Avoid sounding disgusted or repulsed, as it can be perceived as unprofessional and off-putting. Instead, maintain a neutral tone of voice, ensuring that your voice conveys engagement and interest in the conversation."
+            "sad" -> "While it's important to be genuine and authentic, excessive sadness in your voice can be perceived as a lack of enthusiasm or confidence. Strive for a neutral or slightly positive tone, ensuring that your voice conveys engagement and interest in the conversation."
+            "surprise" -> "Use a tone of voice that reflects genuine surprise and interest. Vary your pitch slightly to convey the element of surprise effectively. Ensure that your surprise doesn't overshadow your ability to respond or engage actively in the conversation."
+            "happy" -> "Infuse your voice with warmth and positivity. Use a slightly elevated tone with a smile in your voice to convey enthusiasm and engagement. However, be mindful of striking a balance, ensuring that your happiness doesn't come across as overly exaggerated or forced."
+            "fear" -> "Minimize signs of fear or anxiety in your voice, as they can convey insecurity or lack of confidence. Focus on maintaining a steady and composed tone, speaking clearly and articulately. Project confidence and control in your voice to inspire trust and credibility."
             else -> {
                 "You sound happy, keep it up!"
             }
