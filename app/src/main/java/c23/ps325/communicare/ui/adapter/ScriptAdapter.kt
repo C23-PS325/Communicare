@@ -12,12 +12,12 @@ import c23.ps325.communicare.model.TextScript
 class ScriptAdapter: RecyclerView.Adapter<ScriptAdapter.ScriptViewHolder>() {
 
 //    private val inflater : LayoutInflater = LayoutInflater.from(ctx)
-    private val differCallback = object : DiffUtil.ItemCallback<TextScript>(){
-        override fun areItemsTheSame(oldItem: TextScript, newItem: TextScript): Boolean {
-            return oldItem.textScript == newItem.textScript
+    private val differCallback = object : DiffUtil.ItemCallback<String>(){
+        override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
+            return oldItem == newItem
         }
 
-        override fun areContentsTheSame(oldItem: TextScript, newItem: TextScript): Boolean {
+        override fun areContentsTheSame(oldItem: String, newItem: String): Boolean {
             return oldItem == newItem
         }
     }
@@ -25,7 +25,7 @@ class ScriptAdapter: RecyclerView.Adapter<ScriptAdapter.ScriptViewHolder>() {
     private val differ = AsyncListDiffer(this, differCallback)
 
     class ScriptViewHolder(private val binding : ItemScriptBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun setItem(item: TextScript){
+        fun setItem(item: String){
             binding.textScript.text = item.toString()
         }
     }
@@ -44,5 +44,5 @@ class ScriptAdapter: RecyclerView.Adapter<ScriptAdapter.ScriptViewHolder>() {
         holder.setIsRecyclable(false)
     }
 
-    fun setData(data: ArrayList<TextScript>) = differ.submitList(data)
+    fun setData(data: List<String>) = differ.submitList(data)
 }

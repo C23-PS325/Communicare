@@ -112,8 +112,7 @@ class CameraFragment : Fragment(){
         model.script(1)
         model.scriptObserver().observe(viewLifecycleOwner){
             if (it != null){
-                val dataArray = JSONArray(it)
-                adapter.setData(dataArray as ArrayList<TextScript>)
+                adapter.setData(it)
                 initializeScriptUI()
                 Log.i(TAG, "setDataScript: Success")
             }else{

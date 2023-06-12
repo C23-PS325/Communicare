@@ -24,7 +24,7 @@ data class DataItem(
 	val caseName: String,
 
 	@field:SerializedName("text_array")
-	val textArray: List<TextScript>,
+	val textArray: String,
 
 	@field:SerializedName("id")
 	val id: Int
