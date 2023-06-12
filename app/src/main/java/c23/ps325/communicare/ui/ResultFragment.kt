@@ -1,5 +1,7 @@
 package c23.ps325.communicare.ui
 
+import android.graphics.Color
+import android.graphics.Typeface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -27,6 +29,7 @@ class ResultFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val dataResult = Prediction(FramesPrediction(angry = 59.34, sad = 24.18, surprise = 12.09, happy = 2.2, fear = 2.2), "Angry")
+//        val dataResult = Prediction(FramesPrediction(angry = 0.0, sad = 0.0, surprise = 0.0, happy = 100.0, fear = 0.0), "Angry")
         setupChart(dataResult)
         setupRecommendation(dataResult)
     }
@@ -35,20 +38,22 @@ class ResultFragment : Fragment() {
         val listPieEntry = ArrayList<PieEntry>()
         var maxExp = 0.0
         for (expression in dataPrediction.frames){
-            listPieEntry.add(PieEntry(expression.second.toFloat(), expression.first))
+            if (expression.second > 0.0){
+                listPieEntry.add(PieEntry(expression.second.toFloat(), expression.first))
+            }
             if (expression.second > maxExp){
                 maxExp = expression.second
                 topFaceExp = expression.first
             }
         }
-        val set = PieDataSet(listPieEntry, "Face Expression Prediction")
+        val set = PieDataSet(listPieEntry, "")
         set.colors = ColorTemplate.COLORFUL_COLORS.toList()
-        set.valueTextSize = 14f
-        set.valueTextColor = resources.getColor(android.R.color.white)
-        set.valueLinePart1Length = 25f
+        set.valueTextSize = 18f
+        set.valueLineColor = resources.getColor(android.R.color.black)
+
         val data = PieData(set)
         binding.chartFace.data = data
-        binding.chartFace.minAngleForSlices = 30f
+        binding.chartFace.setUsePercentValues(true)
         binding.chartFace.invalidate()
     }
 
