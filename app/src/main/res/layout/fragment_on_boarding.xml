@@ -45,11 +45,12 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/button_register"
-        android:layout_width="210dp"
+        android:layout_width="0dp"
         android:layout_height="70dp"
         android:backgroundTint="@color/blue"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/guideline_center">
         <TextView
             android:textAlignment="center"
             android:layout_marginTop="27dp"
@@ -62,10 +63,11 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/button_login"
-        android:layout_width="210dp"
+        android:layout_width="0dp"
         android:layout_height="70dp"
         android:backgroundTint="@color/teal"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@id/guideline_center"
         app:layout_constraintEnd_toEndOf="parent">
 
         <TextView
@@ -77,5 +79,12 @@
             android:textAlignment="center"
             android:textColor="@color/white" />
     </androidx.cardview.widget.CardView>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
