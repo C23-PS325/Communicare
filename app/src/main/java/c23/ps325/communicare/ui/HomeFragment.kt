@@ -13,13 +13,18 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import c23.ps325.communicare.R
 import c23.ps325.communicare.databinding.FragmentHomeBinding
-import dagger.hilt.android.AndroidEntryPoint
+import c23.ps325.communicare.ui.adapter.HistoryAdapter
 import c23.ps325.communicare.viewmodel.AuthViewModel
+import c23.ps325.communicare.viewmodel.HistoryViewModel
+import c23.ps325.communicare.viewmodel.VideoPredictViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
 private var PERMISSIONS_REQUIRED = arrayOf(
     Manifest.permission.CAMERA,
@@ -28,9 +33,10 @@ private var PERMISSIONS_REQUIRED = arrayOf(
 @Suppress("DEPRECATION")
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
-    private lateinit var dataStoreViewModel: AuthViewModel
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
+    private lateinit var dataStoreViewModel: AuthViewModel
+    private val historyViewModel : HistoryViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,7 +75,18 @@ class HomeFragment : Fragment() {
         binding.userPhoto.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_profileFragment)
         }
+        setupHistoryRecView()
+    }
 
+    private fun setupHistoryRecView() {
+        historyViewModel.getAllHistory().observe(viewLifecycleOwner) {
+            val dataHistory = it
+            val layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            val adapter = HistoryAdapter(dataHistory)
+            binding.rvHistory.layoutManager = layoutManager
+            binding.rvHistory.adapter = adapter
+        }
     }
 
     private fun getPermission() {
@@ -109,5 +126,4 @@ class HomeFragment : Fragment() {
             ContextCompat.checkSelfPermission(context, it) == PackageManager.PERMISSION_GRANTED
         }
     }
-
 }

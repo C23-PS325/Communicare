@@ -1,10 +1,16 @@
 package c23.ps325.communicare.network
 
+import android.content.Context
+import androidx.room.Room
 import c23.ps325.communicare.BuildConfig
+import c23.ps325.communicare.database.CommunicareDAO
+import c23.ps325.communicare.database.CommunicareDB
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Protocol
 import okhttp3.logging.HttpLoggingInterceptor
@@ -64,5 +70,18 @@ class ConfigApi {
     companion object{
         var BASE_AUTH = "https://communicare-388309.et.r.appspot.com"
         var BASE_ML = "https://communicare-upload-3eilltznia-et.a.run.app/"
+    }
+    @Provides
+    fun provideDAO(db: CommunicareDB): CommunicareDAO = db.communicareDAO()
+
+    @Singleton
+    @Provides
+    fun provideDB(@ApplicationContext context: Context): CommunicareDB {
+        return Room.databaseBuilder(
+            context.applicationContext,
+            CommunicareDB::class.java,
+            "communicare.db")
+            .fallbackToDestructiveMigration()
+            .build()
     }
 }
