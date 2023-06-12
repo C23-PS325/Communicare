@@ -34,7 +34,7 @@ import java.io.File
 @AndroidEntryPoint
 class UploadFragment : Fragment() {
 
-    private val args:   UploadFragmentArgs by navArgs()
+    private val args: UploadFragmentArgs by navArgs()
 
     private var _binding : FragmentUploadBinding? = null
     private val binding get() = _binding!!
@@ -98,7 +98,7 @@ class UploadFragment : Fragment() {
                 inputStream?.copyTo(it)
             }
             val reqBody : RequestBody = tempFile.asRequestBody(tipe?.toMediaType())
-            val image = MultipartBody.Part.createFormData("file_video", tempFile.name, reqBody)
+            val image = MultipartBody.Part.createFormData("Communicare-record", tempFile.name, reqBody)
             model.uploadVideo(image)
             Log.i("Upload Video", "Success, $image")
             inputStream?.close()

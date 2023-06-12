@@ -3,11 +3,14 @@ package c23.ps325.communicare.ui
 import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.os.Bundle
+import android.os.Handler
 import android.provider.MediaStore
+import android.util.DisplayMetrics
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
@@ -17,21 +20,32 @@ import androidx.concurrent.futures.await
 import androidx.core.content.ContextCompat
 import androidx.core.util.Consumer
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.recyclerview.widget.LinearLayoutManager
 import c23.ps325.communicare.databinding.FragmentCameraBinding
+import c23.ps325.communicare.model.DataItem
+import c23.ps325.communicare.model.TextScript
+import c23.ps325.communicare.ui.adapter.ScriptAdapter
+import c23.ps325.communicare.viewmodel.ScriptViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.launch
+import org.json.JSONArray
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
+@Suppress("DEPRECATION")
 @AndroidEntryPoint
 class CameraFragment : Fragment(){
 
     private var _binding : FragmentCameraBinding? = null
     private val binding get() = _binding!!
+    private val model : ScriptViewModel by viewModels()
+    private val adapter by lazy { ScriptAdapter() }
 
     private var lensFacing: Int = CameraSelector.LENS_FACING_FRONT
     private var preview: Preview? = null
@@ -57,7 +71,6 @@ class CameraFragment : Fragment(){
         RECORDING,  // Camera is recording, only display Pause/Resume & Stop button.
         FINALIZED,  // Recording just completes, disable all RECORDING UI controls.
     }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -71,6 +84,7 @@ class CameraFragment : Fragment(){
         super.onViewCreated(view, savedInstanceState)
 
         initCameraFragment()
+
         viewFinder = binding.previewView
     }
 
@@ -81,15 +95,32 @@ class CameraFragment : Fragment(){
                 enumerationDeferred!!.await()
                 enumerationDeferred = null
             }
-//            initializeScriptUI()
-
             bindCameraUseCases()
         }
     }
 
-    /*private fun initializeScriptUI() {
-updated
-    }*/
+    private fun initializeScriptUI() {
+        binding.listScript.adapter = adapter
+        val layout = LinearLayoutManager(context)
+        binding.listScript.layoutManager = layout
+        binding.listScript.postDelayed({
+            binding.listScript.smoothScrollToPosition(adapter.itemCount -1)
+        }, 300)
+    }
+
+    private fun setDataScript(){
+        model.script(1)
+        model.scriptObserver().observe(viewLifecycleOwner){
+            if (it != null){
+                val dataArray = JSONArray(it)
+                adapter.setData(dataArray as ArrayList<TextScript>)
+                initializeScriptUI()
+                Log.i(TAG, "setDataScript: Success")
+            }else{
+                Toast.makeText(context, "Script Null", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
 
     private fun initializeUI() {
 
@@ -124,6 +155,9 @@ updated
                 }
             }
             isEnabled = false
+
+            setDataScript()
+
         }
 
        binding.stopButton.apply {
@@ -146,12 +180,6 @@ updated
             isEnabled = false
         }
 
-        /*captureLiveStatus.observe(viewLifecycleOwner) {
-            captureViewBinding.captureStatus.apply {
-                post { text = it }
-            }
-        }
-        captureLiveStatus.value = getString(R.string.Idle)*/
     }
 
     private suspend fun bindCameraUseCases() {
@@ -301,7 +329,7 @@ updated
         cameraIndex = 0
         qualityIndex = DEFAULT_QUALITY_IDX
         audioEnabled = true
-//        initializeScriptUI()
+        initializeScriptUI()
     }
 
     override fun onDestroyView() {
