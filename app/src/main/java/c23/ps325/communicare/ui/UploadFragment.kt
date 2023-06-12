@@ -121,7 +121,9 @@ class UploadFragment : Fragment() {
                                 it.data.audio,
                                 Date().toString()
                             )
-                            historyViewModel.addHistory(history)
+                            lifecycleScope.launch {
+                                historyViewModel.addHistory(history)
+                            }
                             val bun = Bundle()
                             bun.putParcelable("result_predict", it)
                             Navigation.findNavController(requireView()).navigate(R.id.action_uploadFragment_to_resultFragment, bun)
