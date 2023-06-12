@@ -11,14 +11,17 @@ import androidx.navigation.fragment.findNavController
 import c23.ps325.communicare.R
 import c23.ps325.communicare.databinding.FragmentLoginBinding
 import c23.ps325.communicare.viewmodel.AuthViewModel
+import c23.ps325.communicare.viewmodel.DataStoreViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class LoginFragment : Fragment() {
 
     private lateinit var viewModel: AuthViewModel
+    private lateinit var dataStoreViewModel : DataStoreViewModel
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
+    private lateinit var username : String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,9 +33,11 @@ class LoginFragment : Fragment() {
         val view = binding.root
 
         viewModel = ViewModelProvider(this).get(AuthViewModel::class.java)
+        dataStoreViewModel = ViewModelProvider(this).get(DataStoreViewModel::class.java)
 
         viewModel.navigate.observe(viewLifecycleOwner) { navigate ->
             if (navigate) {
+                dataStoreViewModel.saveLogin(true, username)
                 findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
             }
         }
@@ -42,7 +47,7 @@ class LoginFragment : Fragment() {
         }
 
         binding.btnLogin.setOnClickListener {
-            val username = binding.inputName.text.toString()
+            username = binding.inputName.text.toString()
             val password = binding.inputPassword.text.toString()
 
             viewModel.login(username, password)
