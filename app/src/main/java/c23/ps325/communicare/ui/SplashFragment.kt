@@ -8,9 +8,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import c23.ps325.communicare.R
 import c23.ps325.communicare.databinding.FragmentSplashBinding
+import c23.ps325.communicare.viewmodel.DataStoreViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -18,12 +20,14 @@ class SplashFragment : Fragment() {
 
     private var _binding : FragmentSplashBinding? = null
     private val binding get() = _binding!!
+    private lateinit var dataStoreViewModel: DataStoreViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentSplashBinding.inflate(layoutInflater)
+        dataStoreViewModel = ViewModelProvider(this).get(DataStoreViewModel::class.java)
         return binding.root
     }
 
@@ -32,7 +36,13 @@ class SplashFragment : Fragment() {
         val splashTime : Long = 3000
 
         Handler(Looper.myLooper()!!).postDelayed({
-            findNavController().navigate(R.id.action_splashFragment_to_onBoardingFragment)
+            dataStoreViewModel.getStatus().observe(viewLifecycleOwner){
+                if(it){
+                    findNavController().navigate(R.id.action_splashFragment_to_homeFragment)
+                }else{
+                    findNavController().navigate(R.id.action_splashFragment_to_onBoardingFragment)
+                }
+            }
         }, splashTime)
     }
 }
