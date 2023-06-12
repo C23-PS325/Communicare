@@ -12,6 +12,12 @@ interface ServiceApi {
     @POST("/users/:username")
     fun login(@Body loginRequest: LoginRequest): Call<LoginResponse>
 
+    @PUT("/users/{id}")
+    suspend fun updateProfile(
+        @Path("userId") userId: Int,
+        @Body request: UpdateProfileRequest
+    )
+
 //    ML Endpoint
 
 }

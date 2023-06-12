@@ -3,10 +3,7 @@ package c23.ps325.communicare.repository
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import c23.ps325.communicare.network.ServiceApi
-import c23.ps325.communicare.response.LoginRequest
-import c23.ps325.communicare.response.LoginResponse
-import c23.ps325.communicare.response.RegisterRequest
-import c23.ps325.communicare.response.UserResponse
+import c23.ps325.communicare.response.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -51,6 +48,16 @@ class AuthRepository @Inject constructor(private val api: ServiceApi){
             response.toSuccessResult()
         } catch (e: Exception) {
             errorResult(e.message)
+        }
+    }
+
+    suspend fun updateProfile(userId: Int, photoUrl: String?, newPassword: String?): Result<Unit> {
+        return try {
+            val request = UpdateProfileRequest(photoUrl, newPassword)
+            api.updateProfile(userId, request)
+            Result.Success(Unit)
+        } catch (e: Exception) {
+            Result.Error(e.message)
         }
     }
 

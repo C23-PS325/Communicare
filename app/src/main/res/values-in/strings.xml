@@ -14,4 +14,6 @@
     <string name="settings">Pengaturan</string>
     <string name="logout">Keluar</string>
     <string name="email">Email</string>
+    <string name="new_password">Password Baru</string>
+    <string name="edit_profile">Edit Profil</string>
 </resources>
