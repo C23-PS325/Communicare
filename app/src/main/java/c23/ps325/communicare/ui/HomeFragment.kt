@@ -59,29 +59,27 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.oneWayButton.setOnClickListener {
-            if (hasPermissions(requireContext())) {
-                navigateToCapture()
-            } else {
-                Log.e(HomeFragment::class.java.simpleName,
-                    "Re-requesting permissions ...")
-                activityResultLauncher.launch(PERMISSIONS_REQUIRED)
-            }
+            getPermission()
         }
 
         binding.twoWayButton.setOnClickListener {
-            if (hasPermissions(requireContext())) {
-                navigateToCapture()
-            } else {
-                Log.e(HomeFragment::class.java.simpleName,
-                    "Re-requesting permissions ...")
-                activityResultLauncher.launch(PERMISSIONS_REQUIRED)
-            }
+            getPermission()
         }
 
         binding.userPhoto.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_profileFragment)
         }
 
+    }
+
+    private fun getPermission() {
+        if (hasPermissions(requireContext())) {
+            navigateToCapture()
+        } else {
+            Log.e(HomeFragment::class.java.simpleName,
+                "Re-requesting permissions ...")
+            activityResultLauncher.launch(PERMISSIONS_REQUIRED)
+        }
     }
 
     private val activityResultLauncher =
@@ -92,9 +90,6 @@ class HomeFragment : Fragment() {
             permissions.entries.forEach {
                 if (it.key in PERMISSIONS_REQUIRED && !it.value)
                     permissionGranted = false
-            }
-            if (permissionGranted && !permissions.isEmpty()) {
-                navigateToCapture()
             }
             if (!permissionGranted) {
                 Toast.makeText(context, "Permission request denied", Toast.LENGTH_LONG).show()

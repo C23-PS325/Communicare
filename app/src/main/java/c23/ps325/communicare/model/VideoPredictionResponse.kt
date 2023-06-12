@@ -1,7 +1,10 @@
-package c23.ps325.communicare.response
+package c23.ps325.communicare.model
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class VideoPredictionResponse(
 
 	@field:SerializedName("response")
@@ -12,8 +15,9 @@ data class VideoPredictionResponse(
 
 	@field:SerializedName("message")
 	val message: String
-)
+) : Parcelable
 
+@Parcelize
 data class FramesPrediction(
 
 	@field:SerializedName("surprise")
@@ -30,13 +34,14 @@ data class FramesPrediction(
 
 	@field:SerializedName("fear")
 	val fear: Double
-){
+) : Parcelable {
 	// iterator
 	operator fun iterator(): Iterator<Pair<String, Double>> {
 		return listOf("Angry" to angry, "Sad" to sad, "Surprise" to surprise, "Happy" to happy, "Fear" to fear).iterator()
 	}
 }
 
+@Parcelize
 data class Prediction(
 
 	@field:SerializedName("frames")
@@ -44,4 +49,4 @@ data class Prediction(
 
 	@field:SerializedName("audio")
 	val audio: String
-)
+):Parcelable

@@ -1,15 +1,14 @@
 package c23.ps325.communicare.ui
 
-import android.graphics.Color
-import android.graphics.Typeface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import c23.ps325.communicare.databinding.FragmentResultBinding
-import c23.ps325.communicare.response.FramesPrediction
-import c23.ps325.communicare.response.Prediction
+import c23.ps325.communicare.model.FramesPrediction
+import c23.ps325.communicare.model.Prediction
+import c23.ps325.communicare.model.VideoPredictionResponse
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
@@ -21,15 +20,29 @@ class ResultFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentResultBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val dataResult = Prediction(FramesPrediction(angry = 59.34, sad = 24.18, surprise = 12.09, happy = 2.2, fear = 2.2), "Angry")
-//        val dataResult = Prediction(FramesPrediction(angry = 0.0, sad = 0.0, surprise = 0.0, happy = 100.0, fear = 0.0), "Angry")
+
+        val getData = arguments?.getParcelable<VideoPredictionResponse>("result_predict")
+        val dataFrame = getData?.data?.frames
+        val dataAudio = getData?.data?.audio
+
+        val dataResult = Prediction(
+            dataFrame?.let {
+                FramesPrediction(
+                    it.surprise,
+                    it.sad,
+                    it.happy,
+                    it.angry,
+                    it.fear
+                )
+            }!!, dataAudio!!
+        )
         setupChart(dataResult)
         setupRecommendation(dataResult)
     }

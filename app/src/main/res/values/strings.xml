@@ -16,5 +16,5 @@
     <string name="email">Email</string>
     <string name="capture">Capture</string>
     <string name="back">Back</string>
-    <string name="tips_upload">Tips for the page:\n\t- tap anywhere in the video to replay\n\t- tap system back button to go back\n\t- click button to upload your video</string>
+    <string name="tips_upload">Tips for the page:\n\t- tap anywhere in the video to replay\n\t- tap system back button to go back\n\t- click button to upload your video\n\t- please wait for see the result after click upload button</string>
 </resources>
