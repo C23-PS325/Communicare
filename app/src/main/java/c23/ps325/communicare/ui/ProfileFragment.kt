@@ -46,6 +46,9 @@ class ProfileFragment : Fragment() {
             findNavController().navigate(R.id.action_profileFragment_to_homeFragment)
         }
 
+        dataStoreViewModel.getName().observe(viewLifecycleOwner) { name ->
+            binding.userName.text = name
+        }
         return view
     }
 }
