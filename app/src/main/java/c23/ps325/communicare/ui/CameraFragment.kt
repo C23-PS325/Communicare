@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
@@ -21,6 +22,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import c23.ps325.communicare.databinding.FragmentCameraBinding
+import c23.ps325.communicare.R
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.launch
@@ -71,6 +73,7 @@ class CameraFragment : Fragment(){
         super.onViewCreated(view, savedInstanceState)
 
         initCameraFragment()
+        onBackPressed()
         viewFinder = binding.previewView
     }
 
@@ -159,6 +162,7 @@ updated
         val cameraProvider = ProcessCameraProvider.getInstance(requireContext()).await()
 
         val cameraSelector = CameraSelector.Builder().requireLensFacing(lensFacing).build()
+        viewFinder = binding.previewView
         preview = Preview.Builder()
             .build().apply {
                 setSurfaceProvider(viewFinder.surfaceProvider)
@@ -307,6 +311,16 @@ updated
     override fun onDestroyView() {
         _binding = null
         super.onDestroyView()
+    }
+
+    private fun onBackPressed(){
+        requireActivity()
+            .onBackPressedDispatcher
+            .addCallback(this, object : OnBackPressedCallback(true){
+                override fun handleOnBackPressed() {
+                    navController.navigate(R.id.action_cameraFragment_to_homeFragment)
+                }
+            })
     }
 
     companion object {
