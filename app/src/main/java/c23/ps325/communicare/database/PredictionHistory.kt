@@ -8,7 +8,6 @@ data class PredictionHistory(
     @PrimaryKey(autoGenerate = true)
     val id: Int,
     val angry : Double,
-    val disgust : Double,
     val fear : Double,
     val happy : Double,
     val sad : Double,

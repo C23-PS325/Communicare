@@ -19,7 +19,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import c23.ps325.communicare.R
+import c23.ps325.communicare.database.PredictionHistory
 import c23.ps325.communicare.databinding.FragmentUploadBinding
+import c23.ps325.communicare.viewmodel.HistoryViewModel
 import c23.ps325.communicare.viewmodel.VideoPredictViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
@@ -30,6 +32,7 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import java.io.File
+import java.util.*
 
 @AndroidEntryPoint
 class UploadFragment : Fragment() {
@@ -40,6 +43,7 @@ class UploadFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val model : VideoPredictViewModel by viewModels()
+    private val historyViewModel : HistoryViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -107,7 +111,17 @@ class UploadFragment : Fragment() {
                 withContext(Dispatchers.Main){
                     model.uploadObserver().observe(viewLifecycleOwner){
                         if (it != null) {
-                            Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
+                            val history = PredictionHistory(
+                                0,
+                                it.data.frames.angry,
+                                it.data.frames.fear,
+                                it.data.frames.happy,
+                                it.data.frames.sad,
+                                it.data.frames.surprise,
+                                it.data.audio,
+                                Date().toString()
+                            )
+                            historyViewModel.addHistory(history)
                             val bun = Bundle()
                             bun.putParcelable("result_predict", it)
                             Navigation.findNavController(requireView()).navigate(R.id.action_uploadFragment_to_resultFragment, bun)

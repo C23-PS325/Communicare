@@ -56,14 +56,6 @@
                 android:textColor="@color/black" />
 
             <TextView
-                android:id="@+id/tv_disgust"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{`Disgust : ` + Double.toString(item.disgust)}"
-                android:textSize="18sp"
-                android:textColor="@color/black" />
-
-            <TextView
                 android:id="@+id/tv_fear"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
