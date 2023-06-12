@@ -22,6 +22,7 @@ import c23.ps325.communicare.R
 import c23.ps325.communicare.databinding.FragmentHomeBinding
 import c23.ps325.communicare.ui.adapter.HistoryAdapter
 import c23.ps325.communicare.viewmodel.AuthViewModel
+import c23.ps325.communicare.viewmodel.DataStoreViewModel
 import c23.ps325.communicare.viewmodel.HistoryViewModel
 import c23.ps325.communicare.viewmodel.VideoPredictViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -35,7 +36,7 @@ private var PERMISSIONS_REQUIRED = arrayOf(
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-    private lateinit var dataStoreViewModel: AuthViewModel
+    private val dataStoreViewModel : DataStoreViewModel  by viewModels()
     private val historyViewModel : HistoryViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -75,17 +76,26 @@ class HomeFragment : Fragment() {
         binding.userPhoto.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_profileFragment)
         }
+
+        dataStoreViewModel.getName().observe(viewLifecycleOwner) {
+            binding.userName.text = "Welcome, $it"
+        }
         setupHistoryRecView()
     }
 
     private fun setupHistoryRecView() {
         historyViewModel.getAllHistory().observe(viewLifecycleOwner) {
-            val dataHistory = it
-            val layoutManager =
-                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-            val adapter = HistoryAdapter(dataHistory)
-            binding.rvHistory.layoutManager = layoutManager
-            binding.rvHistory.adapter = adapter
+            if (it.isNotEmpty()){
+                binding.cvHistoryEmpty.visibility = View.GONE
+                val dataHistory = it
+                val layoutManager =
+                    LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+                val adapter = HistoryAdapter(dataHistory)
+                binding.rvHistory.layoutManager = layoutManager
+                binding.rvHistory.adapter = adapter
+            } else{
+                binding.cvHistoryEmpty.visibility = View.VISIBLE
+            }
         }
     }
 
