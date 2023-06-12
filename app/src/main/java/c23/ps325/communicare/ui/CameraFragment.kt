@@ -158,7 +158,7 @@ updated
     }
 
     private suspend fun bindCameraUseCases() {
-        val qualitySelector = QualitySelector.from(Quality.HD)
+        val qualitySelector = QualitySelector.from(Quality.SD)
         val cameraProvider = ProcessCameraProvider.getInstance(requireContext()).await()
 
         val cameraSelector = CameraSelector.Builder().requireLensFacing(lensFacing).build()
