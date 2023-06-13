@@ -40,6 +40,7 @@ class ProfileFragment : Fragment() {
 
         binding.logout.setOnClickListener {
             dataStoreViewModel.logout()
+            findNavController().navigate(R.id.action_profileFragment_to_onBoardingFragment)
         }
 
         binding.btnBack.setOnClickListener {
