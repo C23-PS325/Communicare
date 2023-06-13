@@ -37,7 +37,7 @@ import java.util.*
 @AndroidEntryPoint
 class UploadFragment : Fragment() {
 
-    private val args:   UploadFragmentArgs by navArgs()
+    private val args: UploadFragmentArgs by navArgs()
 
     private var _binding : FragmentUploadBinding? = null
     private val binding get() = _binding!!

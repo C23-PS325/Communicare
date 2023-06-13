@@ -22,3 +22,11 @@ interface ServiceMLApi {
         @Part file_video : MultipartBody.Part
     ): Call<VideoPredictionResponse>
 }
+
+interface ServiceScriptApi {
+
+    @GET("script/{id}")
+    fun getById(
+        @Path("id") scriptId: Int
+    ) : Call<ResponseScript>
+}

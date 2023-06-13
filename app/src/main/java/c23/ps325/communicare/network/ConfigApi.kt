@@ -16,7 +16,6 @@ import okhttp3.Protocol
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Module
@@ -27,10 +26,10 @@ class ConfigApi {
     @Provides
     fun provideBaseUrl1(): ServiceApi {
         val loggingInterceptor = if (BuildConfig.DEBUG) {
-            HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
-        } else {
-            HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.NONE)
-        }
+             HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+         } else {
+             HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.NONE)
+         }
 
         val client = OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor)
@@ -54,9 +53,6 @@ class ConfigApi {
         val protocols = listOf(Protocol.HTTP_1_1, Protocol.HTTP_2)
         val client = OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor)
-            .connectTimeout(120, TimeUnit.SECONDS)
-            .readTimeout(120,TimeUnit.SECONDS)
-            .writeTimeout(120, TimeUnit.SECONDS)
             .protocols(protocols)
             .build()
         val retrofit = Retrofit.Builder()
@@ -67,9 +63,32 @@ class ConfigApi {
         return retrofit.create(ServiceMLApi::class.java)
     }
 
+    @Singleton
+    @Provides
+    fun provideBaseUrl3(): ServiceScriptApi {
+        val loggingInterceptor = if (BuildConfig.DEBUG) {
+            HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+        } else {
+            HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.NONE)
+        }
+
+        val protocols = listOf(Protocol.HTTP_1_1, Protocol.HTTP_2)
+        val client = OkHttpClient.Builder()
+            .addInterceptor(loggingInterceptor)
+            .protocols(protocols)
+            .build()
+        val retrofit = Retrofit.Builder()
+            .baseUrl(BASE_SCRIPT)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(client)
+            .build()
+        return retrofit.create(ServiceScriptApi::class.java)
+    }
+
     companion object{
         var BASE_AUTH = "https://communicare-388309.et.r.appspot.com"
         var BASE_ML = "https://communicare-upload-3eilltznia-et.a.run.app/"
+        var BASE_SCRIPT = "https://script-dot-communicare-388309.et.r.appspot.com/"
     }
     @Provides
     fun provideDAO(db: CommunicareDB): CommunicareDAO = db.communicareDAO()
