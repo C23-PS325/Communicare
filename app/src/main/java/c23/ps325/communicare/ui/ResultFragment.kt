@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import c23.ps325.communicare.R
 import c23.ps325.communicare.databinding.FragmentResultBinding
 import c23.ps325.communicare.model.FramesPrediction
 import c23.ps325.communicare.model.Prediction
@@ -27,6 +29,10 @@ class ResultFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.btnBackToHome.setOnClickListener {
+            findNavController().navigate(R.id.action_resultFragment_to_homeFragment)
+        }
 
         val getData = arguments?.getParcelable<VideoPredictionResponse>("result_predict")
         val dataFrame = getData?.data?.frames
