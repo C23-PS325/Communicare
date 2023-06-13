@@ -1,5 +1,6 @@
 package c23.ps325.communicare.ui.adapter
 
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer

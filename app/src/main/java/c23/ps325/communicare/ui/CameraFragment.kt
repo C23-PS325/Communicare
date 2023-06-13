@@ -25,6 +25,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearSmoothScroller
+import androidx.recyclerview.widget.RecyclerView
 import c23.ps325.communicare.databinding.FragmentCameraBinding
 import c23.ps325.communicare.model.DataItem
 import c23.ps325.communicare.model.TextScript
@@ -71,6 +73,15 @@ class CameraFragment : Fragment(){
         RECORDING,  // Camera is recording, only display Pause/Resume & Stop button.
         FINALIZED,  // Recording just completes, disable all RECORDING UI controls.
     }
+
+    //handle scroll count
+    var scrollCount: Int = 0
+
+    private lateinit var layout: LinearLayoutManager
+
+    //handler for run auto scroll thread
+    internal val handler = Handler()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -101,11 +112,40 @@ class CameraFragment : Fragment(){
 
     private fun initializeScriptUI() {
         binding.listScript.adapter = adapter
-        val layout = LinearLayoutManager(context)
+        layout = object : LinearLayoutManager(requireContext(), VERTICAL, false){
+            override fun smoothScrollToPosition(
+                recyclerView: RecyclerView?,
+                state: RecyclerView.State?,
+                position: Int
+            ) {
+                val smoothScroller = object : LinearSmoothScroller(requireContext()){
+                    override fun calculateSpeedPerPixel(displayMetrics: DisplayMetrics?): Float {
+                        return 5.0f
+                    }
+                }
+                smoothScroller.targetPosition = position
+                startSmoothScroll(smoothScroller)
+            }
+        }
         binding.listScript.layoutManager = layout
-        binding.listScript.postDelayed({
-            binding.listScript.smoothScrollToPosition(adapter.itemCount -1)
-        }, 300)
+        autoScroll()
+    }
+
+    private fun autoScroll() {
+        scrollCount = 0
+        val speedScroll: Long = 3000
+        val runnable = object : Runnable {
+            override fun run() {
+                if (layout.findFirstVisibleItemPosition() >= adapter.itemCount / 2) {
+                    binding.listScript.adapter = adapter
+                    Log.e(TAG, "run: load $scrollCount")
+                }
+                binding.listScript.smoothScrollToPosition(scrollCount++)
+                Log.e(TAG, "run: $scrollCount")
+                handler.postDelayed(this, speedScroll)
+            }
+        }
+        handler.postDelayed(runnable, speedScroll)
     }
 
     private fun setDataScript(){
@@ -154,9 +194,7 @@ class CameraFragment : Fragment(){
                 }
             }
             isEnabled = false
-
             setDataScript()
-
         }
 
        binding.stopButton.apply {
@@ -182,7 +220,7 @@ class CameraFragment : Fragment(){
     }
 
     private suspend fun bindCameraUseCases() {
-        val qualitySelector = QualitySelector.from(Quality.HD)
+        val qualitySelector = QualitySelector.from(Quality.SD)
         val cameraProvider = ProcessCameraProvider.getInstance(requireContext()).await()
 
         val cameraSelector = CameraSelector.Builder().requireLensFacing(lensFacing).build()
@@ -329,11 +367,6 @@ class CameraFragment : Fragment(){
         qualityIndex = DEFAULT_QUALITY_IDX
         audioEnabled = true
         initializeScriptUI()
-    }
-
-    override fun onDestroyView() {
-        _binding = null
-        super.onDestroyView()
     }
 
     companion object {
