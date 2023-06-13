@@ -93,6 +93,7 @@ class CameraFragment : Fragment(){
 
         initCameraFragment()
         viewFinder = binding.previewView
+        onBackPressed()
     }
 
     private fun initCameraFragment() {
@@ -220,6 +221,7 @@ class CameraFragment : Fragment(){
             }
         }
         captureLiveStatus.value = getString(R.string.Idle)*/
+        setDataScript()
     }
 
     private suspend fun bindCameraUseCases() {
@@ -227,6 +229,7 @@ class CameraFragment : Fragment(){
         val cameraProvider = ProcessCameraProvider.getInstance(requireContext()).await()
 
         val cameraSelector = CameraSelector.Builder().requireLensFacing(lensFacing).build()
+        viewFinder = binding.previewView
         preview = Preview.Builder()
             .build().apply {
                 setSurfaceProvider(viewFinder.surfaceProvider)
