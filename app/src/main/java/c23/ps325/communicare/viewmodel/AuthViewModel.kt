@@ -11,6 +11,7 @@ import c23.ps325.communicare.repository.isSuccess
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import c23.ps325.communicare.repository.Result
 
 @HiltViewModel
 class AuthViewModel @Inject constructor(private val repository: AuthRepository): ViewModel(){
@@ -20,6 +21,9 @@ class AuthViewModel @Inject constructor(private val repository: AuthRepository):
 
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> = _errorMessage
+
+    private val _updateProfileResult = MutableLiveData<Result<Unit>>()
+    val updateProfileResult: LiveData<Result<Unit>> = _updateProfileResult
 
     fun login(username: String, password: String) {
         val loginLiveData = repository.login(username, password)
@@ -44,6 +48,13 @@ class AuthViewModel @Inject constructor(private val repository: AuthRepository):
             } else {
                 _errorMessage.value = registerResult.getError()
             }
+        }
+    }
+
+    fun updateProfile(userId: Int, photoUrl: String?, newPassword: String?) {
+        viewModelScope.launch {
+            val result = repository.updateProfile(userId, photoUrl, newPassword)
+            _updateProfileResult.value = result
         }
     }
 

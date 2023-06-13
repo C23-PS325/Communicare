@@ -7,6 +7,7 @@ import c23.ps325.communicare.model.LoginRequest
 import c23.ps325.communicare.model.LoginResponse
 import c23.ps325.communicare.model.RegisterRequest
 import c23.ps325.communicare.model.UserResponse
+import c23.ps325.communicare.response.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -51,6 +52,16 @@ class AuthRepository @Inject constructor(private val api: ServiceApi){
             response.toSuccessResult()
         } catch (e: Exception) {
             errorResult(e.message)
+        }
+    }
+
+    suspend fun updateProfile(userId: Int, photoUrl: String?, newPassword: String?): Result<Unit> {
+        return try {
+            val request = UpdateProfileRequest(photoUrl, newPassword)
+            api.updateProfile(userId, request)
+            Result.Success(Unit)
+        } catch (e: Exception) {
+            Result.Error(e.message)
         }
     }
 

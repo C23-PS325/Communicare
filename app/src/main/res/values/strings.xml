@@ -4,7 +4,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque massa turpis, eleifend non blandit quis, vehicula et arcu. Donec at pretium turpis. Nunc lectus nisi, ultrices sed fringilla ac, imperdiet cursus purus. Maecenas venenatis eleifend enim eu dignissim. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Phasellus fermentum massa sed magna fringilla sagittis. Vestibulum lectus est, ultrices a eros lacinia, euismod finibus felis. Morbi felis risus, condimentum in sapien non, malesuada ultrices augue. Nunc fermentum sapien ac lectus elementum dapibus. Morbi tincidunt urna sit amet pellentesque lobortis. Nulla risus tellus, commodo aliquam tristique sit amet, dictum eget nisl.</string>
     <string name="welcome">Welcome</string>
-    <string name="intro">Select a category to record a video of yourself speaking in order to receive recommendations from us!</string>
+    <string name="intro">Let\'s check your communication skill level and get recommendations from us</string>
     <string name="history">History</string>
     <string name="login">Login</string>
     <string name="username">Username</string>
@@ -21,4 +21,6 @@
     <string name="desc_history_empty">Start taking a video now to improve your communication skills!</string>
     <string name="one_way">One Way</string>
     <string name="two_way">Two Way</string>
+    <string name="new_password">New Password</string>
+    <string name="edit_profile">Edit Profile</string>
 </resources>
