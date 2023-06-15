@@ -3,10 +3,10 @@ package c23.ps325.communicare.repository
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import c23.ps325.communicare.network.ServiceApi
-import c23.ps325.communicare.response.LoginRequest
-import c23.ps325.communicare.response.LoginResponse
-import c23.ps325.communicare.response.RegisterRequest
-import c23.ps325.communicare.response.UserResponse
+import c23.ps325.communicare.model.LoginRequest
+import c23.ps325.communicare.model.LoginResponse
+import c23.ps325.communicare.model.RegisterRequest
+import c23.ps325.communicare.model.UserResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -54,5 +54,67 @@ class AuthRepository @Inject constructor(private val api: ServiceApi){
         }
     }
 
-//    Retrofit
+    private val _dataEdit : MutableLiveData<EditUserResponse?> = MutableLiveData()
+    fun dataEditObserver() : LiveData<EditUserResponse?> = _dataEdit
+
+    fun patchEditUser(userData : String, username: String, email: String, password: String, photoUrl : String){
+        api.editUser(userData,EditUserRequest(username,password, email, photoUrl)).enqueue(object : Callback<EditUserResponse>{
+            override fun onResponse(
+                call: Call<EditUserResponse>,
+                response: Response<EditUserResponse>
+            ) {
+                if (response.isSuccessful){
+                    val body = response.body()
+                    if (body != null){
+                        _dataEdit.postValue(body)
+                        Log.i("Success", "onResponse: Edit User")
+                    }else{
+                        _dataEdit.postValue(null)
+                        Log.e("Fail", "onResponse: Edit User")
+                    }
+                }else{
+                    _dataEdit.postValue(null)
+                    Log.e("Failed", "onResponse: Edit User")
+                }
+            }
+
+            override fun onFailure(call: Call<EditUserResponse>, t: Throwable) {
+                _dataEdit.postValue(null)
+                Log.e("Failure", "onFailure: Edit User", t)
+            }
+
+        })
+    }
+
+    private val _user : MutableLiveData<DataUserItem?> = MutableLiveData()
+    fun userObserver() : LiveData<DataUserItem?> = _user
+    fun getUser(username: String){
+        api.getByUsername(username).enqueue(object : Callback<ResponseGetUser>{
+            override fun onResponse(
+                call: Call<ResponseGetUser>,
+                response: Response<ResponseGetUser>
+            ) {
+                if (response.isSuccessful){
+                    val body = response.body()
+                    if (body != null){
+                        _user.postValue(body.data[0])
+                        Log.i("Success", "onResponse: Get User")
+                    }else{
+                        _user.postValue(null)
+                        Log.e("Fail", "onResponse: Get User")
+                    }
+                }else{
+                    _user.postValue(null)
+                    Log.e("Failed", "onResponse: Get User")
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseGetUser>, t: Throwable) {
+                _user.postValue(null)
+                Log.e("Failure", "onFailure: ${t.message}", t)
+            }
+
+        })
+    }
+
 }

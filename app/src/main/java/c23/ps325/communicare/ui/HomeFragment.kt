@@ -6,30 +6,41 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import c23.ps325.communicare.R
 import c23.ps325.communicare.databinding.FragmentHomeBinding
-import c23.ps325.communicare.databinding.FragmentSplashBinding
+import c23.ps325.communicare.ui.adapter.HistoryAdapter
+import c23.ps325.communicare.viewmodel.AuthViewModel
+import c23.ps325.communicare.viewmodel.DataStoreViewModel
+import c23.ps325.communicare.viewmodel.HistoryViewModel
+import c23.ps325.communicare.viewmodel.VideoPredictViewModel
+import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 
 private var PERMISSIONS_REQUIRED = arrayOf(
     Manifest.permission.CAMERA,
-    Manifest.permission.RECORD_AUDIO)
+    Manifest.permission.RECORD_AUDIO
+)
 
 @Suppress("DEPRECATION")
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
-
-    private var _binding : FragmentHomeBinding? = null
+    private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
+    private val dataStoreViewModel : DataStoreViewModel  by viewModels()
+    private val historyViewModel : HistoryViewModel by viewModels()
+    private val authViewModel : AuthViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,25 +69,59 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.oneWayButton.setOnClickListener {
-            if (hasPermissions(requireContext())) {
-                navigateToCapture()
-            } else {
-                Log.e(HomeFragment::class.java.simpleName,
-                    "Re-requesting permissions ...")
-                activityResultLauncher.launch(PERMISSIONS_REQUIRED)
-            }
+            getPermission()
         }
 
         binding.twoWayButton.setOnClickListener {
-            if (hasPermissions(requireContext())) {
-                navigateToCapture()
-            } else {
-                Log.e(HomeFragment::class.java.simpleName,
-                    "Re-requesting permissions ...")
-                activityResultLauncher.launch(PERMISSIONS_REQUIRED)
-            }
+            getPermission()
         }
 
+        binding.userPhoto.setOnClickListener {
+            Navigation.findNavController(requireView()).navigate(R.id.action_homeFragment_to_profileFragment)
+        }
+
+        dataStoreViewModel.getName().observe(viewLifecycleOwner) {
+            binding.userName.text = "Welcome, $it"
+        }
+        setupHistoryRecView()
+
+        dataStoreViewModel.getName().observe(viewLifecycleOwner){ username ->
+            authViewModel.getUser(username)
+            authViewModel.userObserver().observe(viewLifecycleOwner){
+                val data = it
+                if (data != null) {
+                    binding.apply {
+                        Glide.with(requireView()).load(data.photoUrl).into(userPhoto)
+                    }
+                }
+            }
+        }
+    }
+
+    private fun setupHistoryRecView() {
+        historyViewModel.getAllHistory().observe(viewLifecycleOwner) {
+            if (it.isNotEmpty()){
+                binding.cvHistoryEmpty.visibility = View.GONE
+                val dataHistory = it
+                val layoutManager =
+                    LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+                val adapter = HistoryAdapter(dataHistory)
+                binding.rvHistory.layoutManager = layoutManager
+                binding.rvHistory.adapter = adapter
+            } else{
+                binding.cvHistoryEmpty.visibility = View.VISIBLE
+            }
+        }
+    }
+
+    private fun getPermission() {
+        if (hasPermissions(requireContext())) {
+            navigateToCapture()
+        } else {
+            Log.e(HomeFragment::class.java.simpleName,
+                "Re-requesting permissions ...")
+            activityResultLauncher.launch(PERMISSIONS_REQUIRED)
+        }
     }
 
     private val activityResultLauncher =
@@ -87,9 +132,6 @@ class HomeFragment : Fragment() {
             permissions.entries.forEach {
                 if (it.key in PERMISSIONS_REQUIRED && !it.value)
                     permissionGranted = false
-            }
-            if (permissionGranted && !permissions.isEmpty()) {
-                navigateToCapture()
             }
             if (!permissionGranted) {
                 Toast.makeText(context, "Permission request denied", Toast.LENGTH_LONG).show()
@@ -109,5 +151,4 @@ class HomeFragment : Fragment() {
             ContextCompat.checkSelfPermission(context, it) == PackageManager.PERMISSION_GRANTED
         }
     }
-
 }

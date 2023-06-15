@@ -22,10 +22,8 @@ class AuthViewModel @Inject constructor(private val repository: AuthRepository):
     val errorMessage: LiveData<String> = _errorMessage
 
     fun login(username: String, password: String) {
-        // Panggil metode login dari repository
         val loginLiveData = repository.login(username, password)
 
-        // Observasi LiveData untuk mendapatkan hasil login
         loginLiveData.observeForever { result ->
             if (result.isSuccess()) {
                 _navigate.value = true
@@ -48,5 +46,11 @@ class AuthViewModel @Inject constructor(private val repository: AuthRepository):
             }
         }
     }
+
+    fun patchUser(userData: String, username: String, password: String, email: String, photo : String) = repository.patchEditUser(userData, username, email, password, photo)
+    fun patchObserver() = repository.dataEditObserver()
+
+    fun getUser(username: String) = repository.getUser(username)
+    fun userObserver() = repository.userObserver()
 
 }

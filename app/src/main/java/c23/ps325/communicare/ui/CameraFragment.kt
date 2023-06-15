@@ -3,11 +3,15 @@ package c23.ps325.communicare.ui
 import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.os.Bundle
+import android.os.Handler
 import android.provider.MediaStore
+import android.util.DisplayMetrics
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
@@ -17,10 +21,17 @@ import androidx.concurrent.futures.await
 import androidx.core.content.ContextCompat
 import androidx.core.util.Consumer
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearSmoothScroller
+import androidx.recyclerview.widget.RecyclerView
+import c23.ps325.communicare.R
 import c23.ps325.communicare.databinding.FragmentCameraBinding
+import c23.ps325.communicare.ui.adapter.ScriptAdapter
+import c23.ps325.communicare.viewmodel.ScriptViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.launch
@@ -32,11 +43,12 @@ class CameraFragment : Fragment(){
 
     private var _binding : FragmentCameraBinding? = null
     private val binding get() = _binding!!
+    private val model : ScriptViewModel by viewModels()
+    private val adapter by lazy { ScriptAdapter() }
 
     private var lensFacing: Int = CameraSelector.LENS_FACING_FRONT
     private var preview: Preview? = null
     private lateinit var videoCapture: VideoCapture<Recorder>
-    private var cameraProvider: ProcessCameraProvider? = null
     private lateinit var viewFinder: PreviewView
     private var currentRecording: Recording? = null
     private lateinit var recordingState:VideoRecordEvent
@@ -59,6 +71,14 @@ class CameraFragment : Fragment(){
         FINALIZED,  // Recording just completes, disable all RECORDING UI controls.
     }
 
+    //handle scroll count
+    var scrollCount: Int = 0
+
+    private lateinit var layout: LinearLayoutManager
+
+    //handler for run auto scroll thread
+    internal val handler = Handler()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -73,6 +93,7 @@ class CameraFragment : Fragment(){
 
         initCameraFragment()
         viewFinder = binding.previewView
+        onBackPressed()
     }
 
     private fun initCameraFragment() {
@@ -88,9 +109,56 @@ class CameraFragment : Fragment(){
         }
     }
 
-    /*private fun initializeScriptUI() {
-updated
-    }*/
+    private fun initializeScriptUI() {
+        binding.listScript.adapter = adapter
+        layout = object : LinearLayoutManager(requireContext(), VERTICAL, false){
+            override fun smoothScrollToPosition(
+                recyclerView: RecyclerView?,
+                state: RecyclerView.State?,
+                position: Int
+            ) {
+                val smoothScroller = object : LinearSmoothScroller(requireContext()){
+                    override fun calculateSpeedPerPixel(displayMetrics: DisplayMetrics?): Float {
+                        return 5.0f
+                    }
+                }
+                smoothScroller.targetPosition = position
+                startSmoothScroll(smoothScroller)
+            }
+        }
+        binding.listScript.layoutManager = layout
+        autoScroll()
+    }
+
+    private fun autoScroll() {
+        scrollCount = 0
+        val speedScroll: Long = 3000
+        val runnable = object : Runnable {
+            override fun run() {
+                if (layout.findFirstVisibleItemPosition() >= adapter.itemCount / 2) {
+                    binding.listScript.adapter = adapter
+                    Log.e(TAG, "run: load $scrollCount")
+                }
+                binding.listScript.smoothScrollToPosition(scrollCount++)
+                Log.e(TAG, "run: $scrollCount")
+                handler.postDelayed(this, speedScroll)
+            }
+        }
+        handler.postDelayed(runnable, speedScroll)
+    }
+
+    private fun setDataScript(){
+        model.script(1)
+        model.scriptObserver().observe(viewLifecycleOwner){
+            if (it != null){
+                adapter.setData(it)
+                initializeScriptUI()
+                Log.i(TAG, "setDataScript: Success")
+            }else{
+                Toast.makeText(context, "Script Null", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
 
     private fun initializeUI() {
 
@@ -153,13 +221,15 @@ updated
             }
         }
         captureLiveStatus.value = getString(R.string.Idle)*/
+        setDataScript()
     }
 
     private suspend fun bindCameraUseCases() {
-        val qualitySelector = QualitySelector.from(Quality.HD)
+        val qualitySelector = QualitySelector.from(Quality.SD)
         val cameraProvider = ProcessCameraProvider.getInstance(requireContext()).await()
 
         val cameraSelector = CameraSelector.Builder().requireLensFacing(lensFacing).build()
+        viewFinder = binding.previewView
         preview = Preview.Builder()
             .build().apply {
                 setSurfaceProvider(viewFinder.surfaceProvider)
@@ -302,12 +372,17 @@ updated
         cameraIndex = 0
         qualityIndex = DEFAULT_QUALITY_IDX
         audioEnabled = true
-//        initializeScriptUI()
+        initializeScriptUI()
     }
 
-    override fun onDestroyView() {
-        _binding = null
-        super.onDestroyView()
+    private fun onBackPressed(){
+        requireActivity()
+            .onBackPressedDispatcher
+            .addCallback(this, object : OnBackPressedCallback(true){
+                override fun handleOnBackPressed() {
+                    navController.navigate(R.id.action_cameraFragment_to_homeFragment)
+                }
+            })
     }
 
     companion object {

@@ -1,60 +1,120 @@
 package c23.ps325.communicare.ui
 
+import android.content.Intent
+import android.database.Cursor
+import android.media.MediaScannerConnection
+import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.provider.MediaStore
+import android.provider.Settings
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CompoundButton
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import c23.ps325.communicare.R
+import c23.ps325.communicare.databinding.FragmentSettingBinding
+import c23.ps325.communicare.viewmodel.AuthViewModel
+import c23.ps325.communicare.viewmodel.DataStoreViewModel
+import com.bumptech.glide.Glide
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [SettingFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+@AndroidEntryPoint
 class SettingFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private val dataStoreViewModel: DataStoreViewModel by viewModels()
+    private val authViewModel : AuthViewModel by viewModels()
+    private var _binding: FragmentSettingBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_setting, container, false)
+    ): View {
+        _binding = FragmentSettingBinding.inflate(inflater, container, false)
+        setDataUser()
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment SettingFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            SettingFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.btnLanguange.setOnClickListener {
+            startActivity(Intent(Settings.ACTION_LOCALE_SETTINGS))
+        }
+
+        binding.btnBack.setOnClickListener {
+            findNavController().navigate(R.id.action_settingFragment_to_profileFragment)
+        }
+
+        dataStoreViewModel.liveThemeSettings().observe(viewLifecycleOwner){ isDarkModeActive: Boolean ->
+            if (isDarkModeActive){
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                binding.mode.isChecked = true
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                binding.mode.isChecked = false
+            }
+        }
+
+        binding.mode.setOnCheckedChangeListener{_:CompoundButton?, isChecked: Boolean ->
+            dataStoreViewModel.saveThemeSettings(isChecked)
+        }
+
+        binding.btnEditProfile.setOnClickListener {
+            editUser()
+        }
+
+    }
+
+    private fun setDataUser() {
+        dataStoreViewModel.getName().observe(viewLifecycleOwner){ username ->
+            authViewModel.getUser(username)
+            authViewModel.userObserver().observe(viewLifecycleOwner){
+                val data = it
+                if (data != null) {
+                    binding.apply {
+                        inputEmail.setText(data.email)
+                        inputUsername.setText(data.username)
+                        inputPassword.setText(data.password)
+                        inputImage.setText(data.photoUrl)
+                        Glide.with(requireView()).load(data.photoUrl).into(userPhoto)
+                    }
                 }
             }
+        }
+    }
+
+
+    private fun editUser() {
+        dataStoreViewModel.getName().observe(viewLifecycleOwner){ userData ->
+            if (userData != null){
+                val username = binding.inputUsername.text.toString()
+                val password = binding.inputPassword.text.toString()
+                val email = binding.inputEmail.text.toString()
+                val photo = binding.inputImage.text.toString()
+
+                authViewModel.patchUser(userData, username, password, email, photo)
+                authViewModel.patchObserver().observe(viewLifecycleOwner){
+                    if (it != null){
+                        Navigation.findNavController(requireView()).navigate(R.id.action_settingFragment_to_onBoardingFragment)
+                        dataStoreViewModel.logout()
+                        Toast.makeText(context, "Please Login again", Toast.LENGTH_SHORT).show()
+                    }else{
+                        Toast.makeText(context, "Failed Update User", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+        }
+
     }
 }

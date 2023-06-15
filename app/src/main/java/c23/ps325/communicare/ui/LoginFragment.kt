@@ -6,20 +6,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import c23.ps325.communicare.R
 import c23.ps325.communicare.databinding.FragmentLoginBinding
 import c23.ps325.communicare.viewmodel.AuthViewModel
+import c23.ps325.communicare.viewmodel.DataStoreViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class LoginFragment : Fragment() {
 
     private lateinit var viewModel: AuthViewModel
+    private lateinit var dataStoreViewModel : DataStoreViewModel
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
+    private lateinit var username : String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,29 +32,24 @@ class LoginFragment : Fragment() {
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
         val view = binding.root
 
-        // Inisialisasi ViewModel menggunakan Hilt
         viewModel = ViewModelProvider(this).get(AuthViewModel::class.java)
+        dataStoreViewModel = ViewModelProvider(this).get(DataStoreViewModel::class.java)
 
-        // Observasi navigateToMain untuk pindah halaman jika login berhasil
         viewModel.navigate.observe(viewLifecycleOwner) { navigate ->
             if (navigate) {
-                // Pindah ke halaman utama (misalnya, menggunakan Navigation Component)
+                dataStoreViewModel.saveLogin(true, username)
                 findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
             }
         }
 
-        // Observasi errorMessage untuk menampilkan pesan error jika login gagal
         viewModel.errorMessage.observe(viewLifecycleOwner) { errorMessage ->
-            // Tampilkan pesan error kepada pengguna (misalnya, menggunakan Toast)
             Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
         }
 
-        // Set up login button click listener
         binding.btnLogin.setOnClickListener {
-            val username = binding.inputName.text.toString()
+            username = binding.inputName.text.toString()
             val password = binding.inputPassword.text.toString()
 
-            // Panggil metode login dari ViewModel
             viewModel.login(username, password)
         }
 
