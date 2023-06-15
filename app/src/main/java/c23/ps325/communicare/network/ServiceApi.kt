@@ -12,6 +12,17 @@ interface ServiceApi {
 
     @POST("/users/:username")
     fun login(@Body loginRequest: LoginRequest): Call<LoginResponse>
+
+    @PATCH("/users/{username}")
+    fun editUser(
+        @Path("username") user : String,
+        @Body editUserRequest: EditUserRequest
+    ): Call<EditUserResponse>
+
+    @GET("/users/{username}")
+    fun getByUsername(
+        @Path("username") user : String
+    ): Call<ResponseGetUser>
 }
 
 interface ServiceMLApi {

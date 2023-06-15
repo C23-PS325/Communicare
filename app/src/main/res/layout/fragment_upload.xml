@@ -6,8 +6,8 @@
     android:layout_width="match_parent">
 
     <ScrollView
-        android:layout_height="wrap_content"
-        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,7 +33,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
-                android:text="Upload your video"
+                android:text="@string/upload_your_video"
                 android:textColor="@color/black"
                 android:fontFamily="@font/poppins_medium"
                 android:textSize="20sp"
@@ -65,7 +65,7 @@
                 android:id="@+id/btn_upload"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="upload"
+                android:text="@string/upload"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -100,7 +100,7 @@
             android:id="@+id/text_loading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Please wait...\nApproximately 1-2 minute"
+            android:text="@string/please_wait"
             android:textSize="22sp"
             android:textColor="@color/blue"
             android:textStyle="bold"

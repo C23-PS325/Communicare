@@ -61,7 +61,7 @@ class ConfigApi {
             .protocols(protocols)
             .build()
         val retrofit = Retrofit.Builder()
-            .baseUrl(BASE_ML)
+            .baseUrl(BASE_ML_EN)
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()
@@ -93,6 +93,7 @@ class ConfigApi {
     companion object{
         var BASE_AUTH = "https://communicare-388309.et.r.appspot.com"
         var BASE_ML = "https://communicare-upload-3eilltznia-et.a.run.app/"
+        var BASE_ML_EN = "https://communicare-engine-3eilltznia-et.a.run.app/"
         var BASE_SCRIPT = "https://script-dot-communicare-388309.et.r.appspot.com/"
     }
     @Provides

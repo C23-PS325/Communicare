@@ -25,7 +25,7 @@
                 android:id="@+id/tv_result"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Hasil Analisa"
+                android:text="@string/hasil_analisa"
                 android:textSize="22sp"
                 android:textStyle="bold" />
 
@@ -33,7 +33,7 @@
                 android:id="@+id/tv_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="Date"
+                android:hint="@string/date"
                 android:text="@{`Date : ` + item.date}"
                 android:textSize="14sp"
                 android:layout_marginBottom="15dp"/>
@@ -42,7 +42,7 @@
                 android:id="@+id/tv_label_face"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Face Expression"
+                android:text="@string/face_expression"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -79,7 +79,7 @@
 
                     <TextView
                         android:gravity="center"
-                        android:text="Angry"
+                        android:text="@string/angry"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
 
@@ -114,7 +114,7 @@
 
                     <TextView
                         android:gravity="center"
-                        android:text="Fear"
+                        android:text="@string/fear"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
 
@@ -149,7 +149,7 @@
 
                     <TextView
                         android:gravity="center"
-                        android:text="Happy"
+                        android:text="@string/happy"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         />
@@ -185,7 +185,7 @@
 
                     <TextView
                         android:gravity="center"
-                        android:text="Sad"
+                        android:text="@string/sad"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
 
@@ -220,29 +220,45 @@
 
                     <TextView
                         android:gravity="center"
-                        android:text="Surprise"
+                        android:text="@string/surprise"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
 
                 </LinearLayout>
 
             </LinearLayout>
-
-            <TextView
-                android:id="@+id/tv_label_sound"
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Sound Emotion Result"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_marginTop="15dp"/>
+                android:layout_marginTop="15dp">
+                <TextView
+                    android:id="@+id/tv_label_sound"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sound_emotion_result"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    />
 
-            <TextView
-                android:id="@+id/tv_sound_result"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{`Sound Emotion : ` + item.soundEmotion}" />
+                <TextView
+                    android:id="@+id/tv_label_sound2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sound_emotion"
+                    android:layout_marginEnd="10dp"
+                    android:layout_below="@id/tv_label_sound"
+                    />
 
+                <TextView
+                    android:id="@+id/tv_sound_result"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/sound_emotion_result"
+                    android:text="@{item.soundEmotion}"
+                    android:layout_gravity="center"
+                    android:layout_below="@id/tv_label_sound"
+                    android:layout_toEndOf="@id/tv_label_sound2"/>
+            </RelativeLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </layout>

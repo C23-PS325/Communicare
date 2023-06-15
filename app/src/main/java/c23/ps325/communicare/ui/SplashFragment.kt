@@ -8,7 +8,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import c23.ps325.communicare.R
 import c23.ps325.communicare.databinding.FragmentSplashBinding
@@ -20,27 +22,26 @@ class SplashFragment : Fragment() {
 
     private var _binding : FragmentSplashBinding? = null
     private val binding get() = _binding!!
-    private lateinit var dataStoreViewModel: DataStoreViewModel
+    private val dataStoreViewModel : DataStoreViewModel  by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentSplashBinding.inflate(layoutInflater)
-        dataStoreViewModel = ViewModelProvider(this).get(DataStoreViewModel::class.java)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val splashTime : Long = 3000
+        val splashTime : Long = 2000
 
         Handler(Looper.myLooper()!!).postDelayed({
             dataStoreViewModel.getStatus().observe(viewLifecycleOwner){
                 if(it){
-                    findNavController().navigate(R.id.action_splashFragment_to_homeFragment)
+                    Navigation.findNavController(requireView()).navigate(R.id.action_splashFragment_to_homeFragment)
                 }else{
-                    findNavController().navigate(R.id.action_splashFragment_to_onBoardingFragment)
+                    Navigation.findNavController(requireView()).navigate(R.id.action_splashFragment_to_onBoardingFragment)
                 }
             }
         }, splashTime)

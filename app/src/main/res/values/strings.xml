@@ -16,9 +16,25 @@
     <string name="email">Email</string>
     <string name="capture">Capture</string>
     <string name="back">Back</string>
-    <string name="tips_upload">Tips for the page:\n\t- Tap anywhere in the video to replay\n\t- Tap system back button to go back\n\t- Click button to upload your video\n\t- Please wait for see the result after click upload button</string>
+    <string name="tips_upload">Tips for the page: \t- Tap anywhere in the video to replay  \t- Click button to upload your video \t- Please wait for see the result after click upload button</string>
     <string name="history_empty">Your history still empty</string>
     <string name="desc_history_empty">Start taking a video now to improve your communication skills!</string>
     <string name="one_way">One Way</string>
     <string name="two_way">Two Way</string>
+    <string name="edit_image">Edit Image</string>
+    <string name="upload_your_video">Upload your video</string>
+    <string name="upload">Upload</string>
+    <string name="hasil_analisa">Result Analyze</string>
+    <string name="date">Date</string>
+    <string name="face_expression">Face Expression</string>
+    <string name="angry">Angry</string>
+    <string name="fear">Fear</string>
+    <string name="happy">Happy</string>
+    <string name="sad">Sad</string>
+    <string name="surprise">Surprise</string>
+    <string name="sound_emotion_result">Sound Emotion Result</string>
+    <string name="sound_emotion">Sound Emotion :</string>
+    <string name="please_wait">Please wait… Approximately 1–2 minute</string>
+    <string name="save_change">Save Change</string>
+    <string name="image_link_jpg_png">Image Link (.jpg/.png)</string>
 </resources>

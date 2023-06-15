@@ -47,4 +47,10 @@ class AuthViewModel @Inject constructor(private val repository: AuthRepository):
         }
     }
 
+    fun patchUser(userData: String, username: String, password: String, email: String, photo : String) = repository.patchEditUser(userData, username, email, password, photo)
+    fun patchObserver() = repository.dataEditObserver()
+
+    fun getUser(username: String) = repository.getUser(username)
+    fun userObserver() = repository.userObserver()
+
 }

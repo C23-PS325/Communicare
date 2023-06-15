@@ -25,11 +25,13 @@ import c23.ps325.communicare.viewmodel.AuthViewModel
 import c23.ps325.communicare.viewmodel.DataStoreViewModel
 import c23.ps325.communicare.viewmodel.HistoryViewModel
 import c23.ps325.communicare.viewmodel.VideoPredictViewModel
+import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 
 private var PERMISSIONS_REQUIRED = arrayOf(
     Manifest.permission.CAMERA,
-    Manifest.permission.RECORD_AUDIO)
+    Manifest.permission.RECORD_AUDIO
+)
 
 @Suppress("DEPRECATION")
 @AndroidEntryPoint
@@ -38,6 +40,7 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
     private val dataStoreViewModel : DataStoreViewModel  by viewModels()
     private val historyViewModel : HistoryViewModel by viewModels()
+    private val authViewModel : AuthViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,13 +77,25 @@ class HomeFragment : Fragment() {
         }
 
         binding.userPhoto.setOnClickListener {
-            findNavController().navigate(R.id.action_homeFragment_to_profileFragment)
+            Navigation.findNavController(requireView()).navigate(R.id.action_homeFragment_to_profileFragment)
         }
 
         dataStoreViewModel.getName().observe(viewLifecycleOwner) {
             binding.userName.text = "Welcome, $it"
         }
         setupHistoryRecView()
+
+        dataStoreViewModel.getName().observe(viewLifecycleOwner){ username ->
+            authViewModel.getUser(username)
+            authViewModel.userObserver().observe(viewLifecycleOwner){
+                val data = it
+                if (data != null) {
+                    binding.apply {
+                        Glide.with(requireView()).load(data.photoUrl).into(userPhoto)
+                    }
+                }
+            }
+        }
     }
 
     private fun setupHistoryRecView() {

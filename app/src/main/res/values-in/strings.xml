@@ -16,7 +16,25 @@
     <string name="email">Email</string>
     <string name="capture">Ambil</string>
     <string name="back">Kembali</string>
-    <string name="tips_upload">Tips untuk halaman ini:\\n\\t- Tap di mana saja untuk melihat preview video\\n\\t- Tap tombol kembali untuk kembali ke halaman sebelumnya\\n\\t- Klik tombol upload untuk mengunggah video ke sistem\\n\\t- Silahkan menunggu hasil prediksi setelah mengunggah video</string>
+    <string name="tips_upload">Tips untuk halaman ini: \t- Sentuh dimana saja untuk replay video \t- Klik tombol unggah untuk mengirim video anda  \t- Silahkan menunggu untuk meilhat hasil setelah klik tombol unggah</string>
     <string name="history_empty">Riwayat Anda masih kosong</string>
     <string name="desc_history_empty">Mulailah merekam video sekarang untuk meningkatkan keterampilan komunikasi Anda!</string>
+    <string name="one_way">Satu Arah</string>
+    <string name="two_way">Dua Arah</string>
+    <string name="edit_image">Edit Gambar</string>
+    <string name="upload_your_video">Unggah video anda</string>
+    <string name="upload">Unggah</string>
+    <string name="please_wait">Mohon menunggu... Kira-kira 1-2 menit</string>
+    <string name="hasil_analisa">Hasil Analisa</string>
+    <string name="date">Tanggal</string>
+    <string name="face_expression">Ekspresi Wajah</string>
+    <string name="angry">Marah</string>
+    <string name="fear">Takut</string>
+    <string name="happy">Senang</string>
+    <string name="sad">Sedih</string>
+    <string name="surprise">Terkejut</string>
+    <string name="sound_emotion_result">Hasil Emosi Suara</string>
+    <string name="sound_emotion">Emosi Suara</string>
+    <string name="save_change">Simpan Perubahan</string>
+    <string name="image_link_jpg_png">" Link Gambar (.jpg/.png)"</string>
 </resources>
