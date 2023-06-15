@@ -1,19 +1,19 @@
 package c23.ps325.communicare.repository
 
-import android.net.Uri
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import c23.ps325.communicare.model.*
 import c23.ps325.communicare.network.ServiceApi
-import com.google.gson.Gson
+import c23.ps325.communicare.model.LoginRequest
+import c23.ps325.communicare.model.LoginResponse
+import c23.ps325.communicare.model.RegisterRequest
+import c23.ps325.communicare.model.UserResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import javax.inject.Inject
 
 class AuthRepository @Inject constructor(private val api: ServiceApi){
-
+//    LiveData
     fun login(username: String, password: String): LiveData<Result<LoginResponse>> {
         val loginData = MutableLiveData<Result<LoginResponse>>()
 
