@@ -1,12 +1,10 @@
 package c23.ps325.communicare.repository
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import c23.ps325.communicare.model.*
 import c23.ps325.communicare.network.ServiceApi
-import c23.ps325.communicare.model.LoginRequest
-import c23.ps325.communicare.model.LoginResponse
-import c23.ps325.communicare.model.RegisterRequest
-import c23.ps325.communicare.model.UserResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -17,11 +15,9 @@ class AuthRepository @Inject constructor(private val api: ServiceApi){
     fun login(username: String, password: String): LiveData<Result<LoginResponse>> {
         val loginData = MutableLiveData<Result<LoginResponse>>()
 
-        // Lakukan pemanggilan API login melalui ServiceApi
         val loginRequest = LoginRequest(username, password)
         val call = api.login(loginRequest)
 
-        // Jalankan permintaan secara asynchronous
         call.enqueue(object : Callback<LoginResponse> {
             override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
                 if (response.isSuccessful) {
@@ -58,7 +54,7 @@ class AuthRepository @Inject constructor(private val api: ServiceApi){
     fun dataEditObserver() : LiveData<EditUserResponse?> = _dataEdit
 
     fun patchEditUser(userData : String, username: String, email: String, password: String, photoUrl : String){
-        api.editUser(userData,EditUserRequest(username,password, email, photoUrl)).enqueue(object : Callback<EditUserResponse>{
+        api.editUser(userData,EditUserRequest(username, email, password, photoUrl)).enqueue(object : Callback<EditUserResponse>{
             override fun onResponse(
                 call: Call<EditUserResponse>,
                 response: Response<EditUserResponse>

@@ -3,7 +3,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque massa turpis, eleifend non blandit quis, vehicula et arcu. Donec at pretium turpis. Nunc lectus nisi, ultrices sed fringilla ac, imperdiet cursus purus. Maecenas venenatis eleifend enim eu dignissim. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Phasellus fermentum massa sed magna fringilla sagittis. Vestibulum lectus est, ultrices a eros lacinia, euismod finibus felis. Morbi felis risus, condimentum in sapien non, malesuada ultrices augue. Nunc fermentum sapien ac lectus elementum dapibus. Morbi tincidunt urna sit amet pellentesque lobortis. Nulla risus tellus, commodo aliquam tristique sit amet, dictum eget nisl.</string>
-    <string name="welcome">Welcome</string>
+    <string name="welcome">Welcome, </string>
     <string name="intro">Select a category to record a video of yourself speaking in order to receive recommendations from us!</string>
     <string name="history">History</string>
     <string name="login">Login</string>
@@ -37,4 +37,11 @@
     <string name="please_wait">Please wait… Approximately 1–2 minute</string>
     <string name="save_change">Save Change</string>
     <string name="image_link_jpg_png">Image Link (.jpg/.png)</string>
+    <string name="are_you_sure">Are you sure to logout?</string>
+    <string name="cancel">Cancel</string>
+    <string name="switch_camera">Switch Camera</string>
+    <string name="result">Result</string>
+    <string name="this_is_a_description_of_the_image_result">This is a description of the image result</string>
+    <string name="this_is_recommendation_sound">This is recommendation sound</string>
+    <string name="go_to_home">Go to Home</string>
 </resources>

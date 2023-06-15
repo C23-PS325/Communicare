@@ -1,7 +1,5 @@
 package c23.ps325.communicare.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import c23.ps325.communicare.database.PredictionHistory

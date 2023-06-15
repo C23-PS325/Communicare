@@ -14,7 +14,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="ContentDescription" />
+        tools:ignore="ContentDescription,VisualLintBounds" />
 
 
     <ImageButton
@@ -39,7 +39,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="ContentDescription" />
+        tools:ignore="ContentDescription,VisualLintBounds" />
 
     <TextView
         android:id="@+id/textView2"
@@ -93,7 +93,8 @@
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="@+id/user_photo"
         app:layout_constraintStart_toStartOf="@+id/user_photo"
-        app:layout_constraintTop_toBottomOf="@+id/user_photo" />
+        app:layout_constraintTop_toBottomOf="@+id/user_photo"
+        tools:ignore="RtlHardcoded" />
 
     <Button
         android:id="@+id/logout"
@@ -109,6 +110,7 @@
         android:drawableRight="@drawable/icon_logout"
         app:layout_constraintEnd_toEndOf="@+id/setting"
         app:layout_constraintStart_toStartOf="@+id/setting"
-        app:layout_constraintTop_toBottomOf="@+id/setting" />
+        app:layout_constraintTop_toBottomOf="@+id/setting"
+        tools:ignore="RtlHardcoded" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

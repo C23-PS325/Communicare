@@ -10,7 +10,6 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Protocol
 import okhttp3.logging.HttpLoggingInterceptor
@@ -92,7 +91,6 @@ class ConfigApi {
 
     companion object{
         var BASE_AUTH = "https://communicare-388309.et.r.appspot.com"
-        var BASE_ML = "https://communicare-upload-3eilltznia-et.a.run.app/"
         var BASE_ML_EN = "https://communicare-engine-3eilltznia-et.a.run.app/"
         var BASE_SCRIPT = "https://script-dot-communicare-388309.et.r.appspot.com/"
     }

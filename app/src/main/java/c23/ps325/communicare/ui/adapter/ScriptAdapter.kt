@@ -1,14 +1,11 @@
 package c23.ps325.communicare.ui.adapter
 
-import android.os.Handler
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import c23.ps325.communicare.databinding.ItemScriptBinding
-import c23.ps325.communicare.model.DataItem
-import c23.ps325.communicare.model.TextScript
 
 class ScriptAdapter: RecyclerView.Adapter<ScriptAdapter.ScriptViewHolder>() {
 
@@ -27,7 +24,7 @@ class ScriptAdapter: RecyclerView.Adapter<ScriptAdapter.ScriptViewHolder>() {
 
     class ScriptViewHolder(private val binding : ItemScriptBinding) : RecyclerView.ViewHolder(binding.root) {
         fun setItem(item: String){
-            binding.textScript.text = item.toString()
+            binding.textScript.text = item
         }
     }
 

@@ -16,6 +16,7 @@ import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.utils.ColorTemplate
 
+@Suppress("DEPRECATION")
 class ResultFragment : Fragment() {
     private lateinit var binding : FragmentResultBinding
     private var topFaceExp = ""
@@ -78,11 +79,6 @@ class ResultFragment : Fragment() {
 
     private fun setupRecommendation(dataPrediction : Prediction){
         val faceRecommendation = when(topFaceExp){
-//            "Angry" -> faceRecommendation = "You look angry, try to calm down and take a deep breath"
-//            "Sad" -> faceRecommendation = "You look sad, try to smile and think of something that makes you happy"
-//            "Surprise" -> faceRecommendation = "You look surprised, try to calm down and take a deep breath"
-//            "Happy" -> faceRecommendation = "You look happy, keep it up!"
-//            "Fear" -> faceRecommendation = "You look afraid, try to calm down and take a deep breath"
             "Angry" -> "Avoid displaying anger during interviews or communication as it can be perceived as unprofessional and off-putting. Instead, maintain a calm and composed demeanor, even if you encounter challenging or frustrating situations."
             "Sad" -> "While it's important to be genuine and authentic, excessive displays of sadness may not be suitable during interviews or communication, as it can convey a lack of enthusiasm or confidence. Instead, strive for a neutral or slightly positive expression to maintain a professional demeanor."
             "Surprise" -> "Mild surprise expressions can be acceptable during interviews or communication, as long as they are genuine and not exaggerated. However, it's crucial to quickly transition into a composed and attentive expression, showing that you are engaged and ready to respond."
@@ -106,7 +102,10 @@ class ResultFragment : Fragment() {
         }
 
         binding.txtFaceRecommendation.text = faceRecommendation
-        binding.txtSoundResult.text = "Sound Emotion Result = ${dataPrediction.audio}"
+        binding.txtSoundResult.text = buildString {
+            append(getString(R.string.sound_emotion))
+            append(dataPrediction.audio)
+        }
         binding.txtSoundRecommendation.text = soundRecommendation
     }
 

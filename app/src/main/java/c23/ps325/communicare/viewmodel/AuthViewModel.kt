@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import c23.ps325.communicare.repository.AuthRepository
-import c23.ps325.communicare.repository.errorResult
 import c23.ps325.communicare.repository.getError
 import c23.ps325.communicare.repository.isSuccess
 import dagger.hilt.android.lifecycle.HiltViewModel

@@ -14,7 +14,8 @@
         android:layout_marginTop="424dp"
         android:src="@drawable/circle"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription,VisualLintBounds" />
 
     <ImageView
         android:id="@+id/line_wave"
@@ -24,7 +25,8 @@
         android:layout_marginBottom="716dp"
         android:src="@drawable/line_wave"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="ContentDescription,VisualLintBounds" />
 
     <ImageView
         android:id="@+id/imageView3"
@@ -33,7 +35,8 @@
         android:src="@drawable/text_login"
         android:layout_marginTop="48dp"
         app:layout_constraintTop_toTopOf="@id/guideline_start"
-        app:layout_constraintStart_toStartOf="@+id/input_name" />
+        app:layout_constraintStart_toStartOf="@+id/input_name"
+        tools:ignore="ContentDescription" />
 
     <EditText
         android:id="@+id/input_name"
@@ -51,7 +54,8 @@
         android:hint="@string/username"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imageView3" />
+        app:layout_constraintTop_toBottomOf="@id/imageView3"
+        android:importantForAutofill="no" />
 
     <EditText
         android:id="@+id/input_password"
@@ -69,15 +73,17 @@
         android:hint="@string/password"
         app:layout_constraintEnd_toEndOf="@+id/input_name"
         app:layout_constraintStart_toStartOf="@+id/input_name"
-        app:layout_constraintTop_toBottomOf="@+id/input_name" />
+        app:layout_constraintTop_toBottomOf="@+id/input_name"
+        android:importantForAutofill="no" />
 
     <ImageButton
         android:id="@+id/btn_back"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
         android:background="@drawable/button_back"
+        android:contentDescription="@string/back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -87,6 +93,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:text="@string/login"
+        tools:ignore="TextContrastCheck"
         app:layout_constraintEnd_toEndOf="@+id/input_password"
         app:layout_constraintStart_toStartOf="@+id/input_password"
         app:layout_constraintTop_toBottomOf="@+id/input_password" />

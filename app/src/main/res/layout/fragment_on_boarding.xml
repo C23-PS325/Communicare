@@ -15,13 +15,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription,VisualLintBounds" />
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="400dp"
         android:src="@drawable/expressions"
-        app:layout_constraintTop_toBottomOf="@+id/imageView14"/>
+        app:layout_constraintTop_toBottomOf="@+id/imageView14"
+        tools:ignore="ContentDescription" />
 
     <ImageView
         android:id="@+id/imageView13"
@@ -31,7 +33,8 @@
         android:layout_marginBottom="604dp"
         android:src="@drawable/line_wave"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="ContentDescription,VisualLintBounds" />
 
     <ImageView
         android:id="@+id/imageView14"
@@ -41,7 +44,8 @@
         android:layout_marginTop="16dp"
         android:src="@drawable/text_slogan"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/button_register"

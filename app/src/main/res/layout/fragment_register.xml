@@ -8,11 +8,12 @@
 
     <ImageButton
         android:id="@+id/btn_back"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
         android:background="@drawable/button_back"
+        android:contentDescription="@string/back"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -25,7 +26,8 @@
         android:rotation="-10"
         android:src="@drawable/line_wave"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription,VisualLintBounds" />
 
     <ImageView
         android:id="@+id/imageView6"
@@ -35,7 +37,8 @@
         android:layout_marginBottom="16dp"
         android:src="@drawable/circle"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="ContentDescription,VisualLintBounds" />
 
 
     <EditText
@@ -52,7 +55,9 @@
         android:hint="@string/username"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:inputType="text"
+        android:importantForAutofill="no" />
 
     <EditText
         android:id="@+id/input_email"
@@ -70,7 +75,8 @@
         android:hint="@string/email"
         app:layout_constraintEnd_toEndOf="@+id/input_username"
         app:layout_constraintStart_toStartOf="@+id/input_username"
-        app:layout_constraintTop_toBottomOf="@+id/input_username" />
+        app:layout_constraintTop_toBottomOf="@+id/input_username"
+        android:importantForAutofill="no" />
 
     <EditText
         android:id="@+id/input_password"
@@ -88,7 +94,8 @@
         android:hint="@string/password"
         app:layout_constraintEnd_toEndOf="@+id/input_email"
         app:layout_constraintStart_toStartOf="@+id/input_email"
-        app:layout_constraintTop_toBottomOf="@+id/input_email" />
+        app:layout_constraintTop_toBottomOf="@+id/input_email"
+        android:importantForAutofill="no" />
 
     <ImageView
         android:id="@+id/imageView8"
@@ -97,13 +104,16 @@
         android:layout_marginBottom="64dp"
         android:src="@drawable/text_register"
         app:layout_constraintBottom_toTopOf="@+id/input_username"
-        app:layout_constraintStart_toStartOf="@+id/input_username" />
+        app:layout_constraintStart_toStartOf="@+id/input_username"
+        tools:ignore="ContentDescription" />
+
     <Button
         android:id="@+id/btn_register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:text="@string/register"
+        tools:ignore="TextContrastCheck"
         app:layout_constraintEnd_toEndOf="@+id/input_password"
         app:layout_constraintStart_toStartOf="@+id/input_password"
         app:layout_constraintTop_toBottomOf="@+id/input_password" />

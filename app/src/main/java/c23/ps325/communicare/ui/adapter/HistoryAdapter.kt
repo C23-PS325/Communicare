@@ -1,15 +1,12 @@
 package c23.ps325.communicare.ui.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import c23.ps325.communicare.BR
 import c23.ps325.communicare.database.PredictionHistory
 import c23.ps325.communicare.databinding.ItemHistoryBinding
 
-class HistoryAdapter(val listHistory : List<PredictionHistory>) : RecyclerView.Adapter<HistoryAdapter.ViewHolder>() {
+class HistoryAdapter(private val listHistory : List<PredictionHistory>) : RecyclerView.Adapter<HistoryAdapter.ViewHolder>() {
     inner class ViewHolder(val binding : ItemHistoryBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(data : PredictionHistory){
             binding.item = data

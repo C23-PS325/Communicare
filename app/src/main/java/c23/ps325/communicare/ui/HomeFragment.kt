@@ -6,17 +6,16 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import c23.ps325.communicare.R
 import c23.ps325.communicare.databinding.FragmentHomeBinding
@@ -24,7 +23,6 @@ import c23.ps325.communicare.ui.adapter.HistoryAdapter
 import c23.ps325.communicare.viewmodel.AuthViewModel
 import c23.ps325.communicare.viewmodel.DataStoreViewModel
 import c23.ps325.communicare.viewmodel.HistoryViewModel
-import c23.ps325.communicare.viewmodel.VideoPredictViewModel
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -81,7 +79,10 @@ class HomeFragment : Fragment() {
         }
 
         dataStoreViewModel.getName().observe(viewLifecycleOwner) {
-            binding.userName.text = "Welcome, $it"
+            binding.userName.text = buildString {
+                append(getString(R.string.welcome))
+                append(it)
+            }
         }
         setupHistoryRecView()
 
@@ -91,7 +92,7 @@ class HomeFragment : Fragment() {
                 val data = it
                 if (data != null) {
                     binding.apply {
-                        Glide.with(requireView()).load(data.photoUrl).into(userPhoto)
+                        Glide.with(requireView()).load(data.photoUrl).placeholder(R.drawable.dummy_profile).into(userPhoto)
                     }
                 }
             }

@@ -3,7 +3,7 @@
     <string name="app_name">Communicare</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque massa turpis, eleifend non blandit quis, vehicula et arcu. Donec at pretium turpis. Nunc lectus nisi, ultrices sed fringilla ac, imperdiet cursus purus. Maecenas venenatis eleifend enim eu dignissim. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Phasellus fermentum massa sed magna fringilla sagittis. Vestibulum lectus est, ultrices a eros lacinia, euismod finibus felis. Morbi felis risus, condimentum in sapien non, malesuada ultrices augue. Nunc fermentum sapien ac lectus elementum dapibus. Morbi tincidunt urna sit amet pellentesque lobortis. Nulla risus tellus, commodo aliquam tristique sit amet, dictum eget nisl.</string>
-    <string name="welcome">Selamat Datang</string>
+    <string name="welcome">"Selamat Datang, "</string>
     <string name="intro">Pilih kategori untuk merekam video dirimu berbicara untuk menghasilkan rekomendasi dari kami!</string>
     <string name="history">Riwayat</string>
     <string name="login">Masuk</string>
@@ -37,4 +37,6 @@
     <string name="sound_emotion">Emosi Suara</string>
     <string name="save_change">Simpan Perubahan</string>
     <string name="image_link_jpg_png">" Link Gambar (.jpg/.png)"</string>
+    <string name="are_you_sure">Apakah anda yakin untuk keluar?</string>
+    <string name="cancel">Batal</string>
 </resources>

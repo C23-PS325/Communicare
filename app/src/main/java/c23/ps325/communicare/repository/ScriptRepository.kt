@@ -3,12 +3,9 @@ package c23.ps325.communicare.repository
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import c23.ps325.communicare.model.DataItem
 import c23.ps325.communicare.model.ResponseScript
-import c23.ps325.communicare.model.TextScript
 import c23.ps325.communicare.network.ServiceScriptApi
 import com.google.gson.Gson
-import org.json.JSONArray
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

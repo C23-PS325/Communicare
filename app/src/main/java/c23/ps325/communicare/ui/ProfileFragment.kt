@@ -1,20 +1,18 @@
 package c23.ps325.communicare.ui
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.findNavController
 import c23.ps325.communicare.R
-import c23.ps325.communicare.databinding.FragmentHomeBinding
 import c23.ps325.communicare.databinding.FragmentProfileBinding
 import c23.ps325.communicare.viewmodel.AuthViewModel
 import c23.ps325.communicare.viewmodel.DataStoreViewModel
 import com.bumptech.glide.Glide
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -41,7 +39,21 @@ class ProfileFragment : Fragment() {
         }
 
         binding.logout.setOnClickListener {
-            dataStoreViewModel.logout()
+            MaterialAlertDialogBuilder(requireContext())
+                .setTitle(getString(R.string.logout))
+                .setMessage(resources.getString(R.string.are_you_sure))
+                .setCancelable(false)
+                .setNegativeButton(resources.getString(R.string.cancel)) { dialog, _ ->
+                    // Respond to negative button press
+                    dialog.cancel()
+                }
+                .setPositiveButton(resources.getString(R.string.logout)) { _, _ ->
+                    // Respond to positive button press
+                    dataStoreViewModel.logout()
+                    Navigation.findNavController(requireView()).navigate(R.id.action_profileFragment_to_onBoardingFragment)
+                }
+                .show()
+
         }
 
         binding.btnBack.setOnClickListener {
@@ -58,7 +70,7 @@ class ProfileFragment : Fragment() {
                 val data = it
                 if (data != null) {
                     binding.apply {
-                        Glide.with(requireView()).load(data.photoUrl).into(userPhoto)
+                        Glide.with(requireView()).load(data.photoUrl).placeholder(R.drawable.dummy_profile).into(userPhoto)
                     }
                 }
             }

@@ -1,23 +1,16 @@
 package c23.ps325.communicare.ui
 
 import android.content.Intent
-import android.database.Cursor
-import android.media.MediaScannerConnection
-import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
 import android.provider.Settings
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CompoundButton
 import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import c23.ps325.communicare.R
@@ -26,7 +19,6 @@ import c23.ps325.communicare.viewmodel.AuthViewModel
 import c23.ps325.communicare.viewmodel.DataStoreViewModel
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class SettingFragment : Fragment() {
@@ -87,7 +79,7 @@ class SettingFragment : Fragment() {
                         inputUsername.setText(data.username)
                         inputPassword.setText(data.password)
                         inputImage.setText(data.photoUrl)
-                        Glide.with(requireView()).load(data.photoUrl).into(userPhoto)
+                        Glide.with(requireView()).load(data.photoUrl).placeholder(R.drawable.dummy_profile).into(userPhoto)
                     }
                 }
             }
@@ -103,7 +95,7 @@ class SettingFragment : Fragment() {
                 val email = binding.inputEmail.text.toString()
                 val photo = binding.inputImage.text.toString()
 
-                authViewModel.patchUser(userData, username, password, email, photo)
+                authViewModel.patchUser(userData, username, email, password, photo)
                 authViewModel.patchObserver().observe(viewLifecycleOwner){
                     if (it != null){
                         Navigation.findNavController(requireView()).navigate(R.id.action_settingFragment_to_onBoardingFragment)

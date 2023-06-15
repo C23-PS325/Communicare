@@ -1,12 +1,12 @@
 package c23.ps325.communicare.ui
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import c23.ps325.communicare.R
 import c23.ps325.communicare.databinding.FragmentLoginBinding
@@ -17,23 +17,16 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class LoginFragment : Fragment() {
 
-    private lateinit var viewModel: AuthViewModel
-    private lateinit var dataStoreViewModel : DataStoreViewModel
+    private val dataStoreViewModel : DataStoreViewModel  by viewModels()
+    private val viewModel : AuthViewModel by viewModels()
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
     private lateinit var username : String
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         // Inflate the layout for this fragment
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
         val view = binding.root
-
-        viewModel = ViewModelProvider(this).get(AuthViewModel::class.java)
-        dataStoreViewModel = ViewModelProvider(this).get(DataStoreViewModel::class.java)
 
         viewModel.navigate.observe(viewLifecycleOwner) { navigate ->
             if (navigate) {

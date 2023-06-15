@@ -38,6 +38,7 @@ import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 
+@Suppress("DEPRECATION")
 @AndroidEntryPoint
 class CameraFragment : Fragment(){
 
@@ -58,7 +59,7 @@ class CameraFragment : Fragment(){
 
     /** Host's navigation controller */
     private val navController: NavController by lazy {
-        Navigation.findNavController(requireActivity(), c23.ps325.communicare.R.id.nav_host_fragment_container)
+        Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_container)
     }
 
     private val mainThreadExecutor by lazy { ContextCompat.getMainExecutor(requireContext()) }
@@ -119,7 +120,7 @@ class CameraFragment : Fragment(){
             ) {
                 val smoothScroller = object : LinearSmoothScroller(requireContext()){
                     override fun calculateSpeedPerPixel(displayMetrics: DisplayMetrics?): Float {
-                        return 5.0f
+                        return 3.0f
                     }
                 }
                 smoothScroller.targetPosition = position
@@ -132,7 +133,7 @@ class CameraFragment : Fragment(){
 
     private fun autoScroll() {
         scrollCount = 0
-        val speedScroll: Long = 3000
+        val speedScroll: Long = 4500
         val runnable = object : Runnable {
             override fun run() {
                 if (layout.findFirstVisibleItemPosition() >= adapter.itemCount / 2) {
@@ -208,19 +209,13 @@ class CameraFragment : Fragment(){
                     recording.stop()
                     currentRecording = null
                 }
-                binding.captureButton.setImageResource(c23.ps325.communicare.R.drawable.ic_start)
+                binding.captureButton.setImageResource(R.drawable.ic_start)
             }
             // ensure the stop button is initialized disabled & invisible
             visibility = View.INVISIBLE
             isEnabled = false
         }
 
-        /*captureLiveStatus.observe(viewLifecycleOwner) {
-            captureViewBinding.captureStatus.apply {
-                post { text = it }
-            }
-        }
-        captureLiveStatus.value = getString(R.string.Idle)*/
         setDataScript()
     }
 
@@ -254,7 +249,7 @@ class CameraFragment : Fragment(){
         } catch (exc: Exception) {
             // we are on main thread, let's reset the controls on the UI.
             Log.e(TAG, "Use case binding failed", exc)
-            resetUIandState("bindToLifecycle failed: $exc")
+            resetUIandState()
         }
         enableUI(true)
     }
@@ -267,11 +262,11 @@ class CameraFragment : Fragment(){
         }
     }
 
-    private fun showUI(state: UiState, status:String = "idle") {
+    private fun showUI(state: UiState) {
         binding.let {
             when(state) {
                 UiState.IDLE -> {
-                    it.captureButton.setImageResource(c23.ps325.communicare.R.drawable.ic_start)
+                    it.captureButton.setImageResource(R.drawable.ic_start)
                     it.stopButton.visibility = View.INVISIBLE
 
                     it.switchCamera.visibility= View.VISIBLE
@@ -283,13 +278,8 @@ class CameraFragment : Fragment(){
                     it.stopButton.isEnabled = true
                 }
                 UiState.FINALIZED -> {
-                    it.captureButton.setImageResource(c23.ps325.communicare.R.drawable.ic_start)
+                    it.captureButton.setImageResource(R.drawable.ic_start)
                     it.stopButton.visibility = View.INVISIBLE
-                }
-                else -> {
-                    val errorMsg = "Error: showUI($state) is not supported"
-                    Log.e(TAG, errorMsg)
-                    return
                 }
             }
         }
@@ -304,10 +294,10 @@ class CameraFragment : Fragment(){
                 // nothing needs to do here.
             }
             is VideoRecordEvent.Start -> {
-                showUI(UiState.RECORDING, event.recordingStats.toString())
+                showUI(UiState.RECORDING)
             }
             is VideoRecordEvent.Finalize-> {
-                showUI(UiState.FINALIZED, event.recordingStats.toString())
+                showUI(UiState.FINALIZED)
             }
         }
 
@@ -365,9 +355,9 @@ class CameraFragment : Fragment(){
         }
     }
 
-    private fun resetUIandState(reason: String) {
+    private fun resetUIandState() {
         enableUI(true)
-        showUI(UiState.IDLE, reason)
+        showUI(UiState.IDLE)
 
         cameraIndex = 0
         qualityIndex = DEFAULT_QUALITY_IDX
@@ -383,6 +373,11 @@ class CameraFragment : Fragment(){
                     navController.navigate(R.id.action_cameraFragment_to_homeFragment)
                 }
             })
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        onDestroy()
     }
 
     companion object {
