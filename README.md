@@ -29,10 +29,10 @@ TechStack :
 Screenshots:
 here's a few screenshoot from Communicare App :
 
-<img src="https://drive.google.com/uc?id=1tnLz5ZBTb5dgNzbB-Ha5qd3W-tXmodGb" alt="Splashscreen" width='325'> <img src="https://drive.google.com/uc?id=1rLiRgeNCKobh6E_Vpqk4-P5rzuEi6wsd" alt="OnBoarding"  width='325'> <img src="https://drive.google.com/uc?id=1nAVdaJ9UGQxEDJbtP6oRwuD1r3qaQwWl" alt="Login"  width='325'>
+<img src="https://drive.google.com/uc?id=1tnLz5ZBTb5dgNzbB-Ha5qd3W-tXmodGb" alt="Splashscreen" width='225'> <img src="https://drive.google.com/uc?id=1rLiRgeNCKobh6E_Vpqk4-P5rzuEi6wsd" alt="OnBoarding"  width='225'> <img src="https://drive.google.com/uc?id=1nAVdaJ9UGQxEDJbtP6oRwuD1r3qaQwWl" alt="Login"  width='225'>
 
-<img src="https://drive.google.com/uc?id=1ZwC_tar0AQqcO7maLlT8QoDBjBsCBG-N/" alt="Register"  width='325'> <img src="https://drive.google.com/uc?id=197xQvS0QZ7X2VUoOPp1P4HXJlP6iw3cH" alt="Home"  width='325'> <img src="https://drive.google.com/uc?id=1wWTICXIycTY7sTMfJ-QG9Y601NEBgNAI" alt="Profile"  width='325'>
+<img src="https://drive.google.com/uc?id=1ZwC_tar0AQqcO7maLlT8QoDBjBsCBG-N" alt="Register"  width='225'> <img src="https://drive.google.com/uc?id=197xQvS0QZ7X2VUoOPp1P4HXJlP6iw3cH" alt="Home"  width='225'> <img src="https://drive.google.com/uc?id=1wWTICXIycTY7sTMfJ-QG9Y601NEBgNAI" alt="Profile"  width='225'>
 
-<img src="https://drive.google.com/uc?id=1hiBlx3YF5P2JWY1qlABzM02i70bJccVl" alt="Setting"  width='325'> <img src="https://drive.google.com/uc?id=1qnOANT1_q4gV6jT1VqEvQDGUDxL7wGTN" alt="Record Video"  width='325'> <img src="https://drive.google.com/uc?id=1i_XPNfpfO-CBJD-xsqbd_mMfgQp46bCU" alt="Result"  width='325'>
+<img src="https://drive.google.com/uc?id=1hiBlx3YF5P2JWY1qlABzM02i70bJccVl" alt="Setting"  width='225'> <img src="https://drive.google.com/uc?id=1qnOANT1_q4gV6jT1VqEvQDGUDxL7wGTN" alt="Record Video"  width='225'> <img src="https://drive.google.com/uc?id=1i_XPNfpfO-CBJD-xsqbd_mMfgQp46bCU" alt="Result"  width='225'>
 
-<img src="https://drive.google.com/uc?id=1b83-FEGp2NpimQsYH7Yy2V0BxRWkwc_i" alt="History"  width='325'>
+<img src="https://drive.google.com/uc?id=1b83-FEGp2NpimQsYH7Yy2V0BxRWkwc_i" alt="History"  width='225'>
